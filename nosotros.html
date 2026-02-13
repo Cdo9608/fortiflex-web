@@ -16,9 +16,9 @@
     <div class="top-bar">
         <div class="top-bar-content">
             <div class="contact-info">
-                <a href="mailto:contacto@fortiflex.com">
+                <a href="/cdn-cgi/l/email-protection#a9cac6c7ddc8caddc6e9cfc6dbddc0cfc5ccd187cac6c4">
                     <i class="fas fa-envelope"></i>
-                    contacto@fortiflex.com
+                    <span class="__cf_email__" data-cfemail="3a5955544e5b594e557a5c55484e535c565f4214595557">[email&#160;protected]</span>
                 </a>
                 <a href="tel:+5117154376">
                     <i class="fas fa-phone"></i>
@@ -176,49 +176,113 @@
             <p class="section-subtitle animate-fade-up delay-1">Nuestros estándares de calidad están respaldados por certificaciones internacionales</p>
             
             <div class="certificaciones-grid">
-                <div class="cert-card animate-float">
+                <div class="cert-card animate-float" data-cert="iso9001">
                     <div class="cert-image">
                         <img src="images/iso9001_icontec.png" alt="ISO 9001 Certificación">
                     </div>
                     <h4>ISO 9001:2015</h4>
                     <p>Sistema de Gestión de Calidad certificado por ICONTEC</p>
+                    <div class="cert-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <span>Ver Certificado</span>
+                    </div>
                 </div>
 
-                <div class="cert-card animate-float delay-1">
+                <div class="cert-card animate-float delay-1" data-cert="sgs">
                     <div class="cert-image">
                         <img src="images/SGS.png" alt="SGS Certificación">
                     </div>
                     <h4>SGS Certificado</h4>
                     <p>Inspección y verificación internacional de calidad</p>
+                    <div class="cert-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <span>Ver Certificado</span>
+                    </div>
                 </div>
 
-                <div class="cert-card animate-float delay-2">
+                <div class="cert-card animate-float delay-2" data-cert="bureau">
                     <div class="cert-image">
                         <img src="images/bureau_veritas.png" alt="Bureau Veritas">
                     </div>
                     <h4>Bureau Veritas</h4>
                     <p>Certificación en sistemas de gestión y calidad</p>
+                    <div class="cert-overlay">
+                        <i class="fas fa-search-plus"></i>
+                        <span>Ver Certificado</span>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Modals -->
-    <div class="modal-overlay" id="modal-politica-calidad">
-        <div class="modal-content">
+    <!-- Modales de Certificaciones -->
+    <div class="modal-overlay" id="modal-cert-iso9001">
+        <div class="modal-content modal-image">
             <button class="modal-close">
                 <i class="fas fa-times"></i>
             </button>
-            <img src="images/politica-calidad.jpg" alt="Política de Calidad FORTIFLEX" class="modal-image">
+            <img src="images/iso9001.jpeg" alt="Certificado ISO 9001 Completo" class="modal-cert-image">
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-cert-sgs">
+        <div class="modal-content modal-image">
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <img src="images/iso9001.jpeg" alt="Certificado SGS Completo" class="modal-cert-image">
+        </div>
+    </div>
+
+    <div class="modal-overlay" id="modal-cert-bureau">
+        <div class="modal-content modal-image">
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <img src="images/iso9001.jpeg" alt="Certificado Bureau Veritas Completo" class="modal-cert-image">
+        </div>
+    </div>
+
+    <!-- Modales con PDF - Descarga directa -->
+    <div class="modal-overlay" id="modal-politica-calidad">
+        <div class="modal-content modal-pdf-download">
+            <button class="modal-close">
+                <i class="fas fa-times"></i>
+            </button>
+            <div class="pdf-download-content">
+                <i class="fas fa-file-pdf pdf-icon"></i>
+                <h3 class="modal-title">Política de Calidad</h3>
+                <p class="pdf-description">Descarga el documento completo de nuestra Política de Calidad certificada.</p>
+                <a href="images/politica-calidad.pdf" download="FORTIFLEX-Politica-de-Calidad.pdf" class="btn-download-pdf-large">
+                    <i class="fas fa-download"></i>
+                    Descargar PDF
+                </a>
+                <a href="images/politica-calidad.pdf" target="_blank" class="btn-view-pdf">
+                    <i class="fas fa-external-link-alt"></i>
+                    Ver en nueva pestaña
+                </a>
+            </div>
         </div>
     </div>
 
     <div class="modal-overlay" id="modal-seguridad-salud">
-        <div class="modal-content">
+        <div class="modal-content modal-pdf-download">
             <button class="modal-close">
                 <i class="fas fa-times"></i>
             </button>
-            <img src="images/seguridad-salud.jpg" alt="Seguridad y Salud en el Trabajo FORTIFLEX" class="modal-image">
+            <div class="pdf-download-content">
+                <i class="fas fa-file-pdf pdf-icon"></i>
+                <h3 class="modal-title">Seguridad y Salud en el Trabajo</h3>
+                <p class="pdf-description">Descarga el documento completo de nuestra Política de Seguridad y Salud en el Trabajo.</p>
+                <a href="images/seguridad-salud.pdf" download="FORTIFLEX-Seguridad-y-Salud.pdf" class="btn-download-pdf-large">
+                    <i class="fas fa-download"></i>
+                    Descargar PDF
+                </a>
+                <a href="images/seguridad-salud.pdf" target="_blank" class="btn-view-pdf">
+                    <i class="fas fa-external-link-alt"></i>
+                    Ver en nueva pestaña
+                </a>
+            </div>
         </div>
     </div>
 
@@ -301,8 +365,8 @@
                     </li>
                     <li>
                         <i class="fas fa-envelope"></i>
-                        <a href="mailto:contacto@fortiflex.com">
-                            contacto@fortiflex.com
+                        <a href="/cdn-cgi/l/email-protection#c1a2aeafb5a0a2b5ae81a7aeb3b5a8a7ada4b9efa2aeac">
+                            <span class="__cf_email__" data-cfemail="6a0905041e0b091e052a0c05181e030c060f1244090507">[email&#160;protected]</span>
                         </a>
                     </li>
                 </ul>

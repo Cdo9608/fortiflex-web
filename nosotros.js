@@ -2,19 +2,49 @@
 // NOSOTROS PAGE - Interactive JavaScript
 // ============================================
 
+// Esperar a que el DOM esté completamente cargado
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('🚀 Inicializando página Nosotros...');
+    
+    // Inicializar todas las funciones
+    initAnimateNumbers();
+    initModals();
+    initScrollAnimations();
+    initParallax();
+    initSmoothScroll();
+    
+    console.log('✅ Página Nosotros inicializada correctamente');
+});
+
 // Animación de números (contador animado)
-function animateNumbers() {
+function initAnimateNumbers() {
     const statNumbers = document.querySelectorAll('.stat-number');
     
+    if (statNumbers.length === 0) {
+        console.log('⚠️ No se encontraron elementos .stat-number');
+        return;
+    }
+    
+    console.log(`📊 Encontrados ${statNumbers.length} contadores`);
+    
     const observerOptions = {
-        threshold: 0.5,
+        threshold: 0.3,
         rootMargin: '0px'
     };
 
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
-                const target = parseInt(entry.target.getAttribute('data-target'));
+                const element = entry.target;
+                const target = parseInt(element.getAttribute('data-target'));
+                
+                if (isNaN(target)) {
+                    console.error('❌ data-target no es un número válido:', element);
+                    return;
+                }
+                
+                console.log(`🎯 Animando contador a: ${target}`);
+                
                 const duration = 2000; // 2 segundos
                 const increment = target / (duration / 16); // 60fps
                 let current = 0;
@@ -22,15 +52,15 @@ function animateNumbers() {
                 const updateNumber = () => {
                     current += increment;
                     if (current < target) {
-                        entry.target.textContent = Math.floor(current);
+                        element.textContent = Math.floor(current);
                         requestAnimationFrame(updateNumber);
                     } else {
-                        entry.target.textContent = target;
+                        element.textContent = target;
                     }
                 };
 
                 updateNumber();
-                observer.unobserve(entry.target);
+                observer.unobserve(element);
             }
         });
     }, observerOptions);
@@ -40,11 +70,144 @@ function animateNumbers() {
     });
 }
 
+// Sistema de Modales
+function initModals() {
+    const modalButtons = document.querySelectorAll('.btn-politica');
+    const certCards = document.querySelectorAll('.cert-card[data-cert]');
+    const modals = document.querySelectorAll('.modal-overlay');
+    const closeButtons = document.querySelectorAll('.modal-close');
+
+    if (modalButtons.length === 0) {
+        console.log('⚠️ No se encontraron botones .btn-politica');
+    } else {
+        console.log(`🪟 Encontrados ${modalButtons.length} botones de modal`);
+    }
+
+    if (certCards.length > 0) {
+        console.log(`🏆 Encontradas ${certCards.length} tarjetas de certificación clicables`);
+    }
+
+    // Abrir modales de políticas
+    modalButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const modalId = this.getAttribute('data-modal');
+            const modal = document.getElementById(`modal-${modalId}`);
+            
+            if (modal) {
+                console.log(`📂 Abriendo modal: ${modalId}`);
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                console.error(`❌ No se encontró el modal: modal-${modalId}`);
+            }
+        });
+    });
+
+    // Abrir modales de certificaciones
+    certCards.forEach(card => {
+        card.addEventListener('click', function() {
+            const certId = this.getAttribute('data-cert');
+            const modal = document.getElementById(`modal-cert-${certId}`);
+            
+            if (modal) {
+                console.log(`🏆 Abriendo certificado: ${certId}`);
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            } else {
+                console.error(`❌ No se encontró el modal: modal-cert-${certId}`);
+            }
+        });
+    });
+
+    // Manejar descarga forzada de PDFs
+    initPDFDownloads();
+
+    // Cerrar modales
+    function closeModal(modal) {
+        if (modal) {
+            console.log('❌ Cerrando modal');
+            modal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
+    closeButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const modal = this.closest('.modal-overlay');
+            closeModal(modal);
+        });
+    });
+
+    // Cerrar al hacer click fuera del contenido
+    modals.forEach(modal => {
+        modal.addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal(this);
+            }
+        });
+    });
+
+    // Cerrar con tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape') {
+            modals.forEach(modal => {
+                if (modal.classList.contains('active')) {
+                    closeModal(modal);
+                }
+            });
+        }
+    });
+}
+
+// Función para forzar descarga de PDFs
+function initPDFDownloads() {
+    const downloadButtons = document.querySelectorAll('.btn-download-pdf-large');
+    
+    downloadButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            
+            const pdfUrl = this.getAttribute('href');
+            const fileName = this.getAttribute('download');
+            
+            console.log(`📥 Descargando: ${fileName}`);
+            
+            // Forzar descarga usando fetch y blob
+            fetch(pdfUrl)
+                .then(response => response.blob())
+                .then(blob => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                    document.body.removeChild(a);
+                    console.log(`✅ Descarga iniciada: ${fileName}`);
+                })
+                .catch(error => {
+                    console.error('❌ Error al descargar:', error);
+                    // Si fetch falla, abrir en nueva pestaña como fallback
+                    window.open(pdfUrl, '_blank');
+                });
+        });
+    });
+    
+    console.log(`📥 Configurados ${downloadButtons.length} botones de descarga de PDF`);
+}
+
 // Animaciones al hacer scroll
 function initScrollAnimations() {
     const animatedElements = document.querySelectorAll(
         '.animate-fade-up, .animate-fade-right, .animate-fade-left, .animate-scale, .animate-float'
     );
+
+    if (animatedElements.length === 0) {
+        return;
+    }
 
     const observerOptions = {
         threshold: 0.15,
@@ -65,66 +228,13 @@ function initScrollAnimations() {
     });
 }
 
-// Sistema de Modales
-function initModals() {
-    const modalButtons = document.querySelectorAll('.btn-politica');
-    const modals = document.querySelectorAll('.modal-overlay');
-    const closeButtons = document.querySelectorAll('.modal-close');
-
-    // Abrir modales
-    modalButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modalId = button.getAttribute('data-modal');
-            const modal = document.getElementById(`modal-${modalId}`);
-            
-            if (modal) {
-                modal.classList.add('active');
-                document.body.style.overflow = 'hidden'; // Prevenir scroll del body
-            }
-        });
-    });
-
-    // Cerrar modales
-    function closeModal(modal) {
-        modal.classList.remove('active');
-        document.body.style.overflow = ''; // Restaurar scroll
-    }
-
-    closeButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modal = button.closest('.modal-overlay');
-            closeModal(modal);
-        });
-    });
-
-    // Cerrar al hacer click fuera del contenido
-    modals.forEach(modal => {
-        modal.addEventListener('click', (e) => {
-            if (e.target === modal) {
-                closeModal(modal);
-            }
-        });
-    });
-
-    // Cerrar con tecla ESC
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-            modals.forEach(modal => {
-                if (modal.classList.contains('active')) {
-                    closeModal(modal);
-                }
-            });
-        }
-    });
-}
-
 // Efecto parallax suave en el video hero
 function initParallax() {
     const hero = document.querySelector('.nosotros-hero');
     const heroVideo = document.querySelector('.hero-video');
     
     if (hero && heroVideo) {
-        window.addEventListener('scroll', () => {
+        window.addEventListener('scroll', function() {
             const scrolled = window.pageYOffset;
             const parallaxSpeed = 0.5;
             
@@ -156,176 +266,20 @@ function initSmoothScroll() {
     });
 }
 
-// Efecto hover en las tarjetas de certificación
-function initCertCardEffects() {
-    const certCards = document.querySelectorAll('.cert-card');
-    
-    certCards.forEach(card => {
-        card.addEventListener('mouseenter', function() {
-            this.style.setProperty('--hover-scale', '1.05');
-        });
-        
-        card.addEventListener('mousemove', function(e) {
-            const rect = this.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            const centerX = rect.width / 2;
-            const centerY = rect.height / 2;
-            
-            const rotateX = (y - centerY) / 20;
-            const rotateY = (centerX - x) / 20;
-            
-            this.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-10px)`;
-        });
-        
-        card.addEventListener('mouseleave', function() {
-            this.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) translateY(0)';
-        });
-    });
-}
-
-// Animación de entrada para las tarjetas de Misión y Visión
-function initMVCardAnimations() {
-    const mvCards = document.querySelectorAll('.mv-card');
-    
-    const observerOptions = {
-        threshold: 0.2,
-        rootMargin: '0px'
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry, index) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0) scale(1)';
-                }, index * 200);
-                
-                observer.unobserve(entry.target);
-            }
-        });
-    }, observerOptions);
-
-    mvCards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px) scale(0.95)';
-        card.style.transition = 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)';
-        observer.observe(card);
-    });
-}
-
-// Preload de imágenes del modal para carga rápida
-function preloadModalImages() {
-    const modalImages = [
-        'images/politica-calidad.jpg',
-        'images/seguridad-salud.jpg'
-    ];
-
-    modalImages.forEach(src => {
-        const img = new Image();
-        img.src = src;
-    });
-}
-
-// Tracking de eventos (para analytics)
-function initEventTracking() {
-    // Track clicks en botones de políticas
-    const politicaButtons = document.querySelectorAll('.btn-politica');
-    politicaButtons.forEach(button => {
-        button.addEventListener('click', () => {
-            const modalType = button.getAttribute('data-modal');
-            console.log(`Modal abierto: ${modalType}`);
-            // Aquí puedes agregar tu código de Google Analytics o similar
-        });
-    });
-
-    // Track tiempo en la página
-    let startTime = Date.now();
-    window.addEventListener('beforeunload', () => {
-        const timeSpent = Math.round((Date.now() - startTime) / 1000);
-        console.log(`Tiempo en página Nosotros: ${timeSpent} segundos`);
-    });
-}
-
-// Efecto de video: pausar cuando no está visible
-function initVideoVisibility() {
-    const video = document.querySelector('.hero-video');
-    
-    if (video) {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    video.play();
-                } else {
-                    video.pause();
-                }
-            });
-        }, { threshold: 0.5 });
-
-        observer.observe(video);
-    }
-}
-
-// Inicializar todas las funciones cuando el DOM esté listo
-document.addEventListener('DOMContentLoaded', () => {
-    console.log('🚀 Página Nosotros cargada - FORTIFLEX PERÚ');
-    
-    // Inicializar todas las funcionalidades
-    animateNumbers();
-    initScrollAnimations();
-    initModals();
-    initParallax();
-    initSmoothScroll();
-    initCertCardEffects();
-    initMVCardAnimations();
-    preloadModalImages();
-    initEventTracking();
-    initVideoVisibility();
-    
-    // Marcar navegación activa
-    const navLinks = document.querySelectorAll('.main-nav a');
-    navLinks.forEach(link => {
-        if (link.getAttribute('href') === 'nosotros.html') {
-            link.classList.add('active');
-        }
-    });
-});
-
-// Lazy loading para el video (carga diferida en móviles)
-if ('IntersectionObserver' in window) {
-    const videoObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const video = entry.target;
-                if (video.dataset.src) {
-                    video.src = video.dataset.src;
-                    video.load();
-                    videoObserver.unobserve(video);
-                }
-            }
-        });
-    });
-
-    const lazyVideos = document.querySelectorAll('video[data-src]');
-    lazyVideos.forEach(video => videoObserver.observe(video));
-}
-
-// Performance: detectar si el usuario está en un dispositivo móvil
+// Detectar si el usuario está en un dispositivo móvil
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
-// Ajustar calidad del video en móviles
+// Ajustar video en móviles
 if (isMobile()) {
     const video = document.querySelector('.hero-video');
     if (video) {
-        // En móviles, usar poster image en lugar de autoplay
         video.removeAttribute('autoplay');
         video.setAttribute('poster', 'images/video-poster.jpg');
     }
 }
 
-// Mensaje de consola
-console.log('%c✅ Página Nosotros inicializada correctamente', 'color: #6DB33F; font-weight: bold; font-size: 14px;');
+// Mensajes de consola
+console.log('%c✅ JavaScript de Nosotros cargado', 'color: #6DB33F; font-weight: bold; font-size: 14px;');
 console.log('%c📱 Contáctanos: +51 905 447 656', 'color: #003B5C; font-size: 12px;');
