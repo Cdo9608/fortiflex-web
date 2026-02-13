@@ -722,11 +722,7 @@ body {
     display: inline-block;
 }
 
-.catalog-content h2::before {
-    content: '📄';
-    margin-right: 0.5rem;
-    font-size: 2.5rem;
-}
+
 
 .catalog-content p {
     font-size: 1.1rem;

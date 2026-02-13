@@ -163,6 +163,7 @@ downloadButtons.forEach(button => {
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.main-header');
     
+	
     if (window.scrollY > 100) {
         header.style.boxShadow = '0 4px 20px rgba(0,0,0,0.15)';
     } else {
