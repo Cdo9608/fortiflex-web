@@ -78,13 +78,12 @@
             <div class="quienes-somos-grid">
                 <div class="image-column">
                     <div class="trabajador-image animate-fade-right">
-                        <img src="images/trabajador1.jpg" alt="Trabajador FORTIFLEX">
-                        <div class="image-overlay">
-                            <div class="overlay-content">
-                                <i class="fas fa-shield-alt"></i>
-                                <p>15 años de experiencia</p>
-                            </div>
-                        </div>
+                        <video class="trabajador-video" autoplay muted loop playsinline controls>
+                            <source src="images/fortiflex_vid2.mp4" type="video/mp4">
+                            <!-- Fallback para navegadores que no soporten video -->
+                            <img src="images/trabajador1.jpg" alt="Trabajador FORTIFLEX">
+                        </video>
+                        
                     </div>
                 </div>
                 
@@ -178,7 +177,7 @@
             <div class="certificaciones-grid">
                 <div class="cert-card animate-float" data-cert="iso9001">
                     <div class="cert-image">
-                        <img src="images/iso9001_icontec.png" alt="ISO 9001 Certificación">
+                        <img src="images/iso9001.jpeg" alt="ISO 9001 Certificación">
                     </div>
                     <h4>ISO 9001:2015</h4>
                     <p>Sistema de Gestión de Calidad certificado por ICONTEC</p>
@@ -190,7 +189,7 @@
 
                 <div class="cert-card animate-float delay-1" data-cert="sgs">
                     <div class="cert-image">
-                        <img src="images/SGS.png" alt="SGS Certificación">
+                        <img src="images/iso9001.jpeg" alt="SGS Certificación">
                     </div>
                     <h4>SGS Certificado</h4>
                     <p>Inspección y verificación internacional de calidad</p>
@@ -202,7 +201,7 @@
 
                 <div class="cert-card animate-float delay-2" data-cert="bureau">
                     <div class="cert-image">
-                        <img src="images/bureau_veritas.png" alt="Bureau Veritas">
+                        <img src="images/iso9001.jpeg" alt="Bureau Veritas">
                     </div>
                     <h4>Bureau Veritas</h4>
                     <p>Certificación en sistemas de gestión y calidad</p>
@@ -215,13 +214,175 @@
         </div>
     </section>
 
+    <!-- Equipo y Producción Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2 class="section-title-center animate-fade-up">El Equipo Detrás de la Calidad</h2>
+            <p class="section-subtitle animate-fade-up delay-1">Personas comprometidas, productos excepcionales</p>
+            
+            <div class="team-carousel">
+                <div class="team-carousel-container">
+                    <!-- Slide 1: Equipo de Producción -->
+                    <div class="team-slide active">
+                        <div class="team-slide-image">
+                            <img src="images/equipo-produccion.jpg" alt="Equipo de Producción FORTIFLEX">
+                            <div class="team-slide-overlay">
+                                <h3 class="team-slide-title">Equipo de Producción</h3>
+                                <p class="team-slide-description">Excelencia en cada proceso</p>
+                            </div>
+                        </div>
+                        <div class="team-slide-content">
+                            <div class="team-value-icon">
+                                <i class="fas fa-users"></i>
+                            </div>
+                            <h4>Compromiso y Dedicación</h4>
+                            <p>"Nuestro equipo humano es el corazón de FORTIFLEX. Cada persona aporta experiencia, dedicación y pasión por crear productos de la más alta calidad."</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 2: Maquinaria y Tecnología -->
+                    <div class="team-slide">
+                        <div class="team-slide-image">
+                            <img src="images/maquinaria-extrusion.jpg" alt="Área de Extrusión FORTIFLEX">
+                            <div class="team-slide-overlay">
+                                <h3 class="team-slide-title">Área de Extrusión</h3>
+                                <p class="team-slide-description">Tecnología de vanguardia</p>
+                            </div>
+                        </div>
+                        <div class="team-slide-content">
+                            <div class="team-value-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <h4>Innovación Constante</h4>
+                            <p>"Invertimos en tecnología de última generación para garantizar precisión, eficiencia y productos que superan los estándares de la industria."</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 3: Control de Calidad -->
+                    <div class="team-slide">
+                        <div class="team-slide-image">
+                            <img src="images/control-calidad.jpg" alt="Control de Calidad FORTIFLEX">
+                            <div class="team-slide-overlay">
+                                <h3 class="team-slide-title">Control de Calidad</h3>
+                                <p class="team-slide-description">Cada detalle importa</p>
+                            </div>
+                        </div>
+                        <div class="team-slide-content">
+                            <div class="team-value-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <h4>Calidad Sin Compromiso</h4>
+                            <p>"Cada producto pasa por rigurosas pruebas de calidad. No permitimos que nada salga de nuestra planta sin cumplir nuestros exigentes estándares."</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 4: Trabajo en Equipo -->
+                    <div class="team-slide">
+                        <div class="team-slide-image">
+                            <img src="images/equipo-produccion.jpg" alt="Equipo Completo FORTIFLEX">
+                            <div class="team-slide-overlay">
+                                <h3 class="team-slide-title">Nuestro Equipo</h3>
+                                <p class="team-slide-description">Unidos por la excelencia</p>
+                            </div>
+                        </div>
+                        <div class="team-slide-content">
+                            <div class="team-value-icon">
+                                <i class="fas fa-handshake"></i>
+                            </div>
+                            <h4>Trabajo en Equipo</h4>
+                            <p>"La colaboración y el respeto mutuo son la base de nuestro éxito. Juntos, construimos soluciones que transforman industrias."</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 5: Instalaciones -->
+                    <div class="team-slide">
+                        <div class="team-slide-image">
+                            <img src="images/equipo-produccion.jpg" alt="Instalaciones FORTIFLEX">
+                            <div class="team-slide-overlay">
+                                <h3 class="team-slide-title">Nuestras Instalaciones</h3>
+                                <p class="team-slide-description">Capacidad y modernidad</p>
+                            </div>
+                        </div>
+                        <div class="team-slide-content">
+                            <div class="team-value-icon">
+                                <i class="fas fa-industry"></i>
+                            </div>
+                            <h4>Infraestructura Moderna</h4>
+                            <p>"Contamos con instalaciones diseñadas para optimizar cada etapa del proceso productivo, garantizando eficiencia y calidad en cada entrega."</p>
+                        </div>
+                    </div>
+
+                    <!-- Slide 6: Compromiso Ambiental -->
+                    <div class="team-slide">
+                        <div class="team-slide-image">
+                            <img src="images/equipo-produccion.jpg" alt="Compromiso Ambiental FORTIFLEX">
+                            <div class="team-slide-overlay">
+                                <h3 class="team-slide-title">Responsabilidad Ambiental</h3>
+                                <p class="team-slide-description">Cuidando nuestro futuro</p>
+                            </div>
+                        </div>
+                        <div class="team-slide-content">
+                            <div class="team-value-icon">
+                                <i class="fas fa-leaf"></i>
+                            </div>
+                            <h4>Compromiso con el Planeta</h4>
+                            <p>"Implementamos prácticas sostenibles en todos nuestros procesos, cuidando el medio ambiente mientras fabricamos productos de calidad."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Controles del Carrusel -->
+                <div class="team-carousel-controls">
+                    <button class="team-carousel-arrow team-carousel-prev">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <div class="team-carousel-dots">
+                        <span class="team-carousel-dot active" data-slide="0"></span>
+                        <span class="team-carousel-dot" data-slide="1"></span>
+                        <span class="team-carousel-dot" data-slide="2"></span>
+                        <span class="team-carousel-dot" data-slide="3"></span>
+                        <span class="team-carousel-dot" data-slide="4"></span>
+                        <span class="team-carousel-dot" data-slide="5"></span>
+                    </div>
+                    <button class="team-carousel-arrow team-carousel-next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Valores FORTIFLEX -->
+            <div class="valores-grid">
+                <div class="valor-card animate-fade-up">
+                    <i class="fas fa-star"></i>
+                    <h4>Calidad</h4>
+                    <p>Excelencia en cada producto</p>
+                </div>
+                <div class="valor-card animate-fade-up delay-1">
+                    <i class="fas fa-shield-alt"></i>
+                    <h4>Confianza</h4>
+                    <p>15 años de respaldo</p>
+                </div>
+                <div class="valor-card animate-fade-up delay-2">
+                    <i class="fas fa-lightbulb"></i>
+                    <h4>Innovación</h4>
+                    <p>Tecnología de punta</p>
+                </div>
+                <div class="valor-card animate-fade-up">
+                    <i class="fas fa-heart"></i>
+                    <h4>Compromiso</h4>
+                    <p>Con nuestros clientes</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Modales de Certificaciones -->
     <div class="modal-overlay" id="modal-cert-iso9001">
         <div class="modal-content modal-image">
             <button class="modal-close">
                 <i class="fas fa-times"></i>
             </button>
-            <img src="images/iso9001.jpeg" alt="Certificado ISO 9001 Completo" class="modal-cert-image">
+            <img src="images/certificado-iso9001-completo.jpg" alt="Certificado ISO 9001 Completo" class="modal-cert-image">
         </div>
     </div>
 
@@ -230,7 +391,7 @@
             <button class="modal-close">
                 <i class="fas fa-times"></i>
             </button>
-            <img src="images/iso9001.jpeg" alt="Certificado SGS Completo" class="modal-cert-image">
+            <img src="images/certificado-sgs-completo.jpg" alt="Certificado SGS Completo" class="modal-cert-image">
         </div>
     </div>
 
@@ -239,7 +400,7 @@
             <button class="modal-close">
                 <i class="fas fa-times"></i>
             </button>
-            <img src="images/iso9001.jpeg" alt="Certificado Bureau Veritas Completo" class="modal-cert-image">
+            <img src="images/certificado-bureau-completo.jpg" alt="Certificado Bureau Veritas Completo" class="modal-cert-image">
         </div>
     </div>
 

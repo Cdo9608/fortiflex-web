@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', function() {
     initScrollAnimations();
     initParallax();
     initSmoothScroll();
+    initTeamCarousel();
     
     console.log('✅ Página Nosotros inicializada correctamente');
 });
@@ -277,6 +278,123 @@ if (isMobile()) {
     if (video) {
         video.removeAttribute('autoplay');
         video.setAttribute('poster', 'images/video-poster.jpg');
+    }
+}
+
+// Carrusel del Equipo
+function initTeamCarousel() {
+    const slides = document.querySelectorAll('.team-slide');
+    const dots = document.querySelectorAll('.team-carousel-dot');
+    const prevBtn = document.querySelector('.team-carousel-prev');
+    const nextBtn = document.querySelector('.team-carousel-next');
+    
+    if (slides.length === 0) {
+        console.log('⚠️ No se encontró el carrusel del equipo');
+        return;
+    }
+    
+    console.log(`👥 Carrusel del equipo inicializado con ${slides.length} slides`);
+    
+    let currentSlide = 0;
+    const slideInterval = 5000; // 5 segundos
+    let carouselTimer;
+
+    function showSlide(n) {
+        // Remover clase active de todos
+        slides.forEach(slide => slide.classList.remove('active'));
+        dots.forEach(dot => dot.classList.remove('active'));
+        
+        // Calcular índice correcto
+        currentSlide = (n + slides.length) % slides.length;
+        
+        // Añadir clase active
+        slides[currentSlide].classList.add('active');
+        dots[currentSlide].classList.add('active');
+        
+        console.log(`👥 Mostrando slide ${currentSlide + 1}/${slides.length}`);
+    }
+
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+
+    function prevSlide() {
+        showSlide(currentSlide - 1);
+    }
+
+    // Auto-advance
+    function startAutoPlay() {
+        carouselTimer = setInterval(nextSlide, slideInterval);
+    }
+
+    function stopAutoPlay() {
+        clearInterval(carouselTimer);
+    }
+
+    // Iniciar autoplay
+    startAutoPlay();
+
+    // Navegación con flechas
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            stopAutoPlay();
+            startAutoPlay();
+        });
+    }
+
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            stopAutoPlay();
+            startAutoPlay();
+        });
+    }
+
+    // Navegación con dots
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showSlide(index);
+            stopAutoPlay();
+            startAutoPlay();
+        });
+    });
+
+    // Pausar al hacer hover
+    const carouselContainer = document.querySelector('.team-carousel-container');
+    if (carouselContainer) {
+        carouselContainer.addEventListener('mouseenter', stopAutoPlay);
+        carouselContainer.addEventListener('mouseleave', startAutoPlay);
+    }
+
+    // Soporte para gestos táctiles en móvil
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    if (carouselContainer) {
+        carouselContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        carouselContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            if (touchEndX < touchStartX - 50) {
+                // Swipe izquierda - siguiente
+                nextSlide();
+                stopAutoPlay();
+                startAutoPlay();
+            }
+            if (touchEndX > touchStartX + 50) {
+                // Swipe derecha - anterior
+                prevSlide();
+                stopAutoPlay();
+                startAutoPlay();
+            }
+        }
     }
 }
 
