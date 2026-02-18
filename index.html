@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FORTIFLEX Perú - Soluciones Plásticas para Industria, Agricultura y Construcción</title>
+    <title>FORTIFLEX Perú</title>
     <meta name="description" content="Tuberías PEAD, geomembranas y soluciones plásticas de alta calidad para minería, agricultura, construcción e industria en todo el Perú.">
     
 	
 	
-	<link rel="icon" type="image/x-icon" href="images/favicon.ico">
+		<link rel="icon" type="image/x-icon" href="images/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
     <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
@@ -25,11 +25,11 @@
             <div class="contact-info">
                 <a href="/cdn-cgi/l/email-protection#a0c3cfd2d2c5cfe0c3cfd2d2c5cf8ec3cfcd">
                     <i class="fas fa-envelope"></i>
-                    <span class="__cf_email__" data-cfemail="40232f3232252f00232f3232252f6e232f2d">[email&#160;protected]</span>
+                    <span class="__cf_email__" data-cfemail="40232f3232252f00232f3232252f6e232f2d"><span class="__cf_email__" data-cfemail="7b161e09181e1f1e085514083b1d14090f121d171e0355181416">[email&#160;protected]</span></span>
                 </a>
-                <a href="tel:+5117154376">
+                <a href="tel:+51905447656">
                     <i class="fas fa-phone"></i>
-                    (01) 715 4376 / 715 4377
+                    (01) 715 4376 / (01) 715 4377 / +51 905 447 656
                 </a>
             </div>
             <div class="social-icons">
@@ -202,17 +202,97 @@
                     <img src="images/catalogo-imagen.jpg" alt="Catálogo FORTIFLEX">
                 </div>
                 <div class="catalog-content">
-                    <h2>Catálogo de Productos</h2>
-                    <p>Descarga nuestro catálogo completo con todas las especificaciones técnicas, medidas, presiones y aplicaciones de nuestros productos.</p>
+                    <h2>Catálogos de Productos</h2>
+                    <p>Descarga nuestros catálogos especializados con todas las especificaciones técnicas, medidas, presiones y aplicaciones de nuestros productos.</p>
                     <p>Incluye fichas técnicas detalladas, tablas de resistencia, guías de instalación y certificaciones de calidad.</p>
-                    <a href="catalogo-fortiflex.pdf" class="btn-download" download>
+                    <button class="btn-download" id="openCatalogModal">
+                        <i class="fas fa-download"></i>
+                        Ver Catálogos Disponibles
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modal de Catálogos -->
+    <div class="catalog-modal-overlay" id="catalogModal">
+        <div class="catalog-modal">
+            <button class="catalog-modal-close" id="closeCatalogModal">
+                <i class="fas fa-times"></i>
+            </button>
+            
+            <div class="catalog-modal-header">
+                <i class="fas fa-file-pdf"></i>
+                <h2>Selecciona el Catálogo</h2>
+                <p>Elige el catálogo que deseas descargar</p>
+            </div>
+            
+            <div class="catalog-modal-grid">
+                <!-- Catálogo General -->
+                <div class="catalog-card">
+                    <div class="catalog-card-icon">
+                        <i class="fas fa-book"></i>
+                    </div>
+                    <h3>LINEA HDPE</h3>
+                    <p>HDPE|PEBD</p>
+                    <ul class="catalog-features">
+                        <li><i class="fas fa-check"></i> Tuberías PE80 y PE100</li>
+						<li><i class="fas fa-check"></i> Tabla de diámetros y SDR</li>
+						<li><i class="fas fa-check"></i> Propiedades físicas y mecánicas</li>
+						<li><i class="fas fa-check"></i> Métodos de unión y accesorios</li>
+                    </ul>
+                    <a href="images/CAT_LINEA_HDPE FORTIFLEX.pdf" class="catalog-download-btn" download>
+                        <i class="fas fa-download"></i>
+                        Descargar PDF
+                    </a>
+                </div>
+
+                <!-- Catálogo Tuberías -->
+                <div class="catalog-card">
+                    <div class="catalog-card-icon" style="background: linear-gradient(135deg, #0066A1 0%, #004d7a 100%);">
+                        <i class="fas fa-pipe-section"></i>
+                    </div>
+                    <h3>LINEA PVC</h3>
+                    <p>Mangueras PVC Plastificadas</p>
+                    <ul class="catalog-features">
+                        <li><i class="fas fa-check"></i> Mangueras PVC reforzadas</li>
+						<li><i class="fas fa-check"></i> Fichas técnicas por modelo</li>
+						<li><i class="fas fa-check"></i> Aplicaciones industriales y agrícolas</li>
+						<li><i class="fas fa-check"></i> Especificaciones de material y presión</li>
+
+                    </ul>
+                    <a href="images/CAT_LINEA_PVC.pdf" class="catalog-download-btn" download>
+                        <i class="fas fa-download"></i>
+                        Descargar PDF
+                    </a>
+                </div>
+
+                <!-- Catálogo Geomembranas -->
+                <div class="catalog-card">
+                    <div class="catalog-card-icon" style="background: linear-gradient(135deg, #6DB33F 0%, #558b2f 100%);">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>SUCCION Y DESCARGA</h3>
+                    <p>PVC Rígido–Flexible</p>
+                    <ul class="catalog-features">
+                        <li><i class="fas fa-check"></i> Mangueras PVC rígido-flexible</li>
+						<li><i class="fas fa-check"></i> Succión, descarga y presión</li>
+						<li><i class="fas fa-check"></i> Tabla de presión y vacío</li>
+						<li><i class="fas fa-check"></i> Rigidez y ensayos físico-mecánicos</li>
+
+                    </ul>
+                    <a href="images/CAT_LINEA_SUCCION_DESCARGA.pdf" class="catalog-download-btn" download>
                         <i class="fas fa-download"></i>
                         Descargar PDF
                     </a>
                 </div>
             </div>
+            
+            <div class="catalog-modal-footer">
+                <p><i class="fas fa-info-circle"></i> ¿Necesitas asesoría personalizada? <a href="contacto.html">Contáctanos aquí</a></p>
+            </div>
         </div>
-    </section>
+    </div>
 
     <footer class="footer">
         <div class="footer-content">
@@ -261,19 +341,19 @@
                     <li>
                         <i class="fas fa-phone"></i>
                         <a href="tel:+5117777777" style="color: rgba(255,255,255,0.8); text-decoration: none;">
-                            (01) 777 7777 / 777 7777
+                            (01) 715 4376 / (01) 715 4377
                         </a>
                     </li>
                     <li>
                         <i class="fab fa-whatsapp"></i>
-                        <a href="https://api.whatsapp.com/send?phone=51999999999&text=Hola,%20necesito%20información%20sobre%20FORTIFLEX" target="_blank" style="color: rgba(255,255,255,0.8); text-decoration: none;">
-                            +51 999 999 999
+                        <a href="https://api.whatsapp.com/send?phone=51905447656&text=Hola,%20necesito%20información%20sobre%20FORTIFLEX" target="_blank" style="color: rgba(255,255,255,0.8); text-decoration: none;">
+                            +51 905 447 656
                         </a>
                     </li>
                     <li>
                         <i class="fas fa-envelope"></i>
                         <a href="/cdn-cgi/l/email-protection#8cefe3fefee9e3ccefe3fefee9e3a2efe3e1" style="color: rgba(255,255,255,0.8); text-decoration: none;">
-                            <span class="__cf_email__" data-cfemail="1d7e726f6f78725d7e726f6f7872337e7270">[email&#160;protected]</span>
+                            <span class="__cf_email__" data-cfemail="1d7e726f6f78725d7e726f6f7872337e7270"><span class="__cf_email__" data-cfemail="eb868e99888e8f8e98c58498ab8d84999f828d878e93c5888486">[email&#160;protected]</span></span>
                         </a>
                     </li>
                 </ul>
@@ -287,5 +367,8 @@
             </div>
         </div>
     </footer>
-	
-	<script src="script.js" defer></script>
+
+    <script src="script.js"></script>
+    <script src="contacto.js"></script>
+</body>
+</html>

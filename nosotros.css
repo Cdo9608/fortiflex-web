@@ -1232,6 +1232,10 @@
         right: -12px;
         font-size: 1.3rem;
     }
+	
+
+	
+	
 }
 
 @media (max-width: 480px) {
@@ -1261,3 +1265,5 @@
         padding: 15px;
     }
 }
+
+

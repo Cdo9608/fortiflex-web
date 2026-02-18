@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - FORTIFLEX Perú | Solicita una Cotización</title>
+    <meta name="description" content="Contacta con FORTIFLEX Perú. Solicita cotizaciones, asesoría técnica personalizada y visita nuestras instalaciones en Lima. Atención inmediata por WhatsApp.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=Work+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="contacto.css">
+    <style>
+        #catalogModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.78);
+            z-index: 999999;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        #catalogModal.open { display: flex; }
+        body.modal-open { overflow: hidden; }
+    </style>
+</head>
+<body>
+    <!-- MODAL - primer elemento del body -->
+    <div id="catalogModal">
+        <div class="catalog-modal-content">
+            <button class="catalog-modal-close" id="closeCatalogModal"><i class="fas fa-times"></i></button>
+            <div class="catalog-modal-header">
+                <i class="fas fa-file-pdf"></i>
+                <h2>Selecciona el Catálogo</h2>
+                <p>Elige el catálogo que deseas descargar</p>
+            </div>
+            <div class="catalog-modal-grid">
+                <div class="catalog-option">
+                    <div class="catalog-option-icon"><i class="fas fa-file-alt"></i></div>
+                    <h3>LINEA HDPE</h3>
+                    <p class="catalog-option-subtitle">HDPE|PEAD</p>
+                    <ul class="catalog-option-list">
+                        <li><i class="fas fa-check"></i> Tuberías PE80 y PE100</li>
+                        <li><i class="fas fa-check"></i> Tabla de diámetros y SDR</li>
+                        <li><i class="fas fa-check"></i> Propiedades físicas y mecánicas</li>
+                        <li><i class="fas fa-check"></i> Métodos de unión y accesorios</li>
+                    </ul>
+                    <a href="catalogo-hdpe.pdf" class="btn-catalog-download" download><i class="fas fa-download"></i> Descargar PDF</a>
+                </div>
+                <div class="catalog-option">
+                    <div class="catalog-option-icon catalog-option-icon-pvc"><i class="fas fa-layer-group"></i></div>
+                    <h3>LINEA PVC</h3>
+                    <p class="catalog-option-subtitle">Mangueras PVC Plastificadas</p>
+                    <ul class="catalog-option-list">
+                        <li><i class="fas fa-check"></i> Mangueras PVC reforzadas</li>
+                        <li><i class="fas fa-check"></i> Fichas técnicas por modelo</li>
+                        <li><i class="fas fa-check"></i> Aplicaciones industriales y agrícolas</li>
+                        <li><i class="fas fa-check"></i> Especificaciones de material y presión</li>
+                    </ul>
+                    <a href="catalogo-pvc.pdf" class="btn-catalog-download" download><i class="fas fa-download"></i> Descargar PDF</a>
+                </div>
+                <div class="catalog-option">
+                    <div class="catalog-option-icon catalog-option-icon-succion"><i class="fas fa-layer-group"></i></div>
+                    <h3>SUCCION Y DESCARGA</h3>
+                    <p class="catalog-option-subtitle">PVC Rígido-Flexible</p>
+                    <ul class="catalog-option-list">
+                        <li><i class="fas fa-check"></i> Mangueras PVC rígido-flexible</li>
+                        <li><i class="fas fa-check"></i> Succión, descarga y presión</li>
+                        <li><i class="fas fa-check"></i> Tabla de presión y vacío</li>
+                        <li><i class="fas fa-check"></i> Rigidez y ensayos físico-mecánicos</li>
+                    </ul>
+                    <a href="catalogo-succion.pdf" class="btn-catalog-download" download><i class="fas fa-download"></i> Descargar PDF</a>
+                </div>
+            </div>
+            <div class="catalog-modal-footer">
+                <i class="fas fa-info-circle"></i>
+                <p>¿Necesitas asesoría personalizada? <a href="https://api.whatsapp.com/send?phone=51905447656" target="_blank">Contáctanos aquí</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Top Bar -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="contact-info">
+                <a href="/cdn-cgi/l/email-protection#9debf8f3e9fceeddfbf2efe9f4fbf1f8e5b3fef2f0b3edf8">
+                    <i class="fas fa-envelope"></i>
+                    <span class="__cf_email__" data-cfemail="0373666d77627043656c71776a656f667b2d606c6e2d7366">[email&#160;protected]</span>
+                </a>
+                <a href="tel:+51 905447656">
+                    <i class="fas fa-phone"></i>
+                    (01) 715 4376 / (01) 715 4377 / +51 905 447 656
+                </a>
+            </div>
+            <div class="social-icons">
+                <a href="https://api.whatsapp.com/send?phone=51905447656" target="_blank" title="WhatsApp">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+                <a href="https://facebook.com/fortiflex" target="_blank" title="Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://instagram.com/fortiflex" target="_blank" title="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://tiktok.com/@fortiflex" target="_blank" title="TikTok">
+                    <i class="fab fa-tiktok"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <div>
+                <img src="images/logo-fortiflex.png" alt="FORTIFLEX Logo" class="logo">
+            </div>
+            <nav class="main-nav">
+                <a href="index.html">INICIO</a>
+                <a href="productos.html">PRODUCTOS</a>
+                <a href="nosotros.html">NOSOTROS</a>
+                <a href="proyectos.html">PROYECTOS</a>
+                <a href="contacto.html" class="active">CONTACTO</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="contacto-hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1 class="hero-title animate-fade-up">¡Hablemos de tu Proyecto!</h1>
+            <p class="hero-subtitle animate-fade-up delay-1">Asesoría técnica personalizada y respuesta inmediata</p>
+            <div class="hero-stats animate-fade-up delay-2">
+                <div class="stat-item">
+                    <i class="fas fa-clock"></i>
+                    <span>Respuesta rápida</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-headset"></i>
+                    <span>Asesoría Técnica</span>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-truck"></i>
+                    <span>Envíos a Todo Perú</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Métodos de Contacto Rápido -->
+    <section class="quick-contact">
+        <div class="container">
+            <div class="quick-contact-grid">
+                <a href="https://api.whatsapp.com/send?phone=51905447656&text=Hola,%20necesito%20una%20cotización" class="quick-contact-card whatsapp-card" target="_blank">
+                    <div class="quick-contact-icon">
+                        <i class="fab fa-whatsapp"></i>
+                    </div>
+                    <h3>WhatsApp</h3>
+                    <p>Respuesta inmediata</p>
+                    <span class="contact-value"></span>
+                    <div class="card-badge">Más Rápido</div>
+                </a>
+
+                <a href="tel:+5117154376" class="quick-contact-card phone-card">
+                    <div class="quick-contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Teléfono</h3>
+                    <p>Llama ahora</p>
+                    <span class="contact-value">(01) 715 4376 <br> +51 905 447 656</span>
+                </a>
+
+                <a href="/cdn-cgi/l/email-protection#b0ddd5c2d3d5d4d5c39edfc3f0d6dfc2c4d9d6dcd5c89ed3dfdd" class="quick-contact-card email-card">
+                    <div class="quick-contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email</h3>
+                    <p>Cotizaciones detalladas</p>
+                    <span class="contact-value email-copyable" data-email="rodolfo.ao@fortiflex.com">
+                        <span class="__cf_email__" data-cfemail="a6d4c9c2c9cac0c988c7c9e6c0c9d4d2cfc0cac3de88c5c9cb">[email&#160;protected]</span>
+                        <button class="btn-copy-email" onclick="copyEmail(event, 'rodolfo.ao@fortiflex.com')" title="Copiar email">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </span>
+                    <span class="contact-value email-copyable" data-email="mercedes.os@fortiflex.com">
+                        <span class="__cf_email__" data-cfemail="c8a5adbaabadacadbbe6a7bb88aea7babca1aea4adb0e6aba7a5">[email&#160;protected]</span>
+                        <button class="btn-copy-email" onclick="copyEmail(event, 'mercedes.os@fortiflex.com')" title="Copiar email">
+                            <i class="fas fa-copy"></i>
+                        </button>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Formulario y Mapa -->
+    <section class="contact-main-section">
+        <div class="container-wide">
+            <div class="contact-grid">
+                <!-- Formulario -->
+                <div class="form-column">
+                    <div class="form-header">
+                        <h2>Solicita una Cotización</h2>
+                        <p>Completa el formulario y nos comunicaremos contigo en menos de 24 horas</p>
+                    </div>
+
+                    <form id="contactForm" class="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nombre">
+                                    <i class="fas fa-user"></i>
+                                    Nombre Completo *
+                                </label>
+                                <input type="text" id="nombre" name="nombre" required placeholder="Tu nombre">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="empresa">
+                                    <i class="fas fa-building"></i>
+                                    Empresa
+                                </label>
+                                <input type="text" id="empresa" name="empresa" placeholder="Nombre de tu empresa">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="email">
+                                    <i class="fas fa-envelope"></i>
+                                    Email *
+                                </label>
+                                <input type="email" id="email" name="email" required placeholder="tu@email.com">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="telefono">
+                                    <i class="fas fa-phone"></i>
+                                    Teléfono / WhatsApp *
+                                </label>
+                                <input type="tel" id="telefono" name="telefono" required placeholder="+51 999 999 999">
+                            </div>
+                        </div>
+
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="sector">
+                                    <i class="fas fa-industry"></i>
+                                    Sector *
+                                </label>
+                                <select id="sector" name="sector" required>
+                                    <option value="">Selecciona tu sector</option>
+                                    <option value="mineria">Minería</option>
+                                    <option value="agricola">Agrícola</option>
+                                    <option value="agroindustria">Agroindustria</option>
+                                    <option value="alcantarillado">Alcantarillado</option>
+                                    <option value="pesquero">Pesquero</option>
+                                    <option value="construccion">Construcción</option>
+                                    <option value="industrial">Industrial</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="producto">
+                                    <i class="fas fa-box"></i>
+                                    Producto de Interés *
+                                </label>
+                                <select id="producto" name="producto" required>
+                                    <option value="">Selecciona un producto</option>
+                                    <option value="tuberias-pead">Tuberías PEAD</option>
+                                    <option value="mangueras-pvc">Mangueras PVC</option>
+                                    <option value="geomembranas">Geomembranas</option>
+                                    <option value="accesorios">Accesorios</option>
+                                    <option value="riego">Sistemas de Riego</option>
+                                    <option value="drenaje">Sistema de Drenaje</option>
+                                    <option value="otro">Otro / Asesoría</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="mensaje">
+                                <i class="fas fa-comment-dots"></i>
+                                Mensaje / Consulta *
+                            </label>
+                            <textarea id="mensaje" name="mensaje" required placeholder="Describe tu proyecto o consulta..."></textarea>
+                        </div>
+
+                        <div class="form-checkbox">
+                            <input type="checkbox" id="politica" name="politica" required>
+                            <label for="politica">
+                                Acepto la <a href="politica-privacidad.html" class="link-politica" target="_blank">Política de Privacidad</a> y autorizo el tratamiento de mis datos personales
+                            </label>
+                        </div>
+
+                        <button type="submit" class="btn-submit">
+                            <i class="fab fa-whatsapp"></i>
+                            Enviar por WhatsApp
+                        </button>
+                    </form>
+
+                    <div id="successMessage" class="success-message" style="display: none;">
+                        <i class="fas fa-check-circle"></i>
+                        <h3>¡Mensaje Enviado!</h3>
+                        <p>Te hemos redirigido a WhatsApp. ¡Nos comunicaremos contigo pronto!</p>
+                    </div>
+                </div>
+
+                <!-- Mapa y Info -->
+                <div class="map-column">
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3903.7!2d-77.07!3d-11.86!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMTHCsDUxJzM2LjAiUyA3N8KwMDQnMTIuMCJX!5e0!3m2!1ses!2spe!4v1234567890" 
+                                width="100%" 
+                                height="400" 
+                                style="border:0;" 
+                                allowfullscreen="" 
+                                loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade">
+                        </iframe>
+                    </div>
+
+                    <div class="contact-info-cards">
+                        <div class="info-card highlight-card">
+                            <div class="info-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Visítanos</h4>
+                                <p>Av. Los Pinos Mz I Lote 18<br>Puente Piedra, Lima - Perú</p>
+                                <a href="https://www.google.com/maps/search/?api=1&query=Av.+Los+Pinos+Mz+I+Lote+18+Puente+Piedra+Lima+Peru" target="_blank" class="btn-whatsapp-inline">
+                                    <i class="fas fa-directions"></i>
+                                    Cómo llegar
+                                </a>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-clock"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Horario de Atención</h4>
+                                <p><strong>Lunes a Viernes:</strong> 8:00 AM - 6:00 PM<br>
+                                <strong>Sábados:</strong> 8:00 AM - 1:00 PM<br>
+                                <strong>Domingos:</strong> Cerrado</p>
+                            </div>
+                        </div>
+
+                        <div class="info-card">
+                            <div class="info-icon">
+                                <i class="fas fa-headset"></i>
+                            </div>
+                            <div class="info-content">
+                                <h4>Atención 24/7</h4>
+                                <p>Nuestro equipo está disponible por WhatsApp las 24 horas para emergencias</p>
+                                <a href="https://api.whatsapp.com/send?phone=51905447656&text=Hola,%20tengo%20una%20consulta%20urgente" target="_blank" class="link-cta">
+                                    Escribir ahora <i class="fas fa-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Otras Formas de Contacto -->
+    <section class="other-contacts-section">
+        <div class="container">
+            <h2 class="section-title-center">Más Formas de Contactarnos</h2>
+
+            <div class="other-contacts-grid">
+                <div class="other-contact-card">
+                    <i class="fas fa-download"></i>
+                    <h3>Catálogo</h3>
+                    <p>Encuentra especificaciones técnicas completas de nuestros productos</p><br>
+                    <button id="openCatalogModal" class="btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Descargar PDF
+                    </button>
+                </div>
+
+                <div class="other-contact-card">
+                    <i class="fas fa-calendar"></i>
+                    <h3>Agenda una Visita</h3>
+                    <p>Conoce nuestras instalaciones y procesos productivos</p><br>
+                    <a href="https://api.whatsapp.com/send?phone=51905447656&text=Quiero%20agendar%20una%20visita" target="_blank" class="btn-secondary">
+                        <i class="fas fa-calendar"></i>
+                        Agendar Cita
+                    </a>
+                </div>
+
+                <div class="other-contact-card">
+                    <i class="fas fa-comments"></i>
+                    <h3>Soporte Técnico</h3>
+                    <p>Resuelve dudas técnicas sobre instalación y uso de productos</p><br>
+                    <a href="/cdn-cgi/l/email-protection#7f0c100f100d0b1a3f19100d0b1619131a07511c1012510f1a" class="btn-secondary">
+                        <i class="fas fa-envelope"></i>
+                        Contactar Soporte
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title-center">Preguntas Frecuentes</h2>
+            <p class="section-subtitle-center">Respuestas rápidas a las consultas más comunes</p>
+
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-truck"></i>
+                        <h4>¿Hacen envíos a todo el Perú?</h4>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, realizamos envíos a todo el territorio nacional. Contamos con convenios con empresas de transporte confiables para garantizar que tu pedido llegue en perfectas condiciones.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-clock"></i>
+                        <h4>¿Cuánto tiempo tarda una cotización?</h4>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Nos comprometemos a enviarte una cotización detallada en un máximo de 24 horas hábiles. Para solicitudes urgentes, contáctanos por WhatsApp para una respuesta inmediata.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-box"></i>
+                        <h4>¿Tienen stock disponible?</h4>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Mantenemos stock de nuestros productos más solicitados. Para pedidos especiales o grandes volúmenes, consulta disponibilidad y tiempos de entrega con nuestro equipo comercial.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-certificate"></i>
+                        <h4>¿Sus productos están certificados?</h4>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Todos nuestros productos cuentan con certificaciones ISO 9001, SGS y Bureau Veritas. Podemos proporcionar certificados de calidad y fichas técnicas con cada pedido.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-handshake"></i>
+                        <h4>¿Ofrecen asesoría técnica?</h4>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Sí, contamos con un equipo técnico especializado que puede asesorarte en la selección del producto correcto, especificaciones técnicas e instalación.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="faq-question">
+                        <i class="fas fa-credit-card"></i>
+                        <h4>¿Qué formas de pago aceptan?</h4>
+                        <i class="fas fa-chevron-down faq-icon"></i>
+                    </div>
+                    <div class="faq-answer">
+                        <p>Aceptamos transferencias bancarias, depósitos, pagos con tarjeta y crédito para empresas. Consulta nuestras condiciones comerciales al solicitar tu cotización.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-about">
+                <img src="images/logo-fortiflex-white.png" alt="FORTIFLEX" class="footer-logo">
+                <p>Empresa 100% peruana con 15 años de experiencia ofreciendo productos y servicios de calidad para las industrias minera, pesquera, de construcción, agrícola y más.</p>
+                
+                <div class="footer-about-certs">
+                    <img src="images/SGS.png" alt="SGS">
+                    <img src="images/iso9001_icontec.png" alt="ISO 9001">
+                    <img src="images/bureau_veritas.png" alt="Bureau Veritas">
+                    <img src="images/premio_emp_peruana.png" alt="Premio Empresa Peruana">
+                </div>
+            </div>
+
+            <div class="footer-section">
+                <h3>Enlaces</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Inicio</a></li>
+                    <li><a href="productos.html">Productos</a></li>
+                    <li><a href="nosotros.html">Nosotros</a></li>
+                    <li><a href="proyectos.html">Proyectos</a></li>
+                    <li><a href="contacto.html">Contacto</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Productos</h3>
+                <ul class="footer-links">
+                    <li><a href="productos.html#tuberias">Tuberías PEAD</a></li>
+                    <li><a href="productos.html#geomembranas">Geomembranas</a></li>
+                    <li><a href="productos.html#accesorios">Accesorios</a></li>
+                    <li><a href="productos.html#riego">Sistemas de Riego</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-section">
+                <h3>Contacto</h3>
+                <ul class="footer-contact">
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <a href="https://www.google.com/maps/search/?api=1&query=Av.+Los+Pinos+Mz+I+Lote+18+Puente+Piedra+Lima+Peru" target="_blank">
+                            Av. Los Pinos Mz I Lote 18<br>Puente Piedra, Lima
+                        </a>
+                    </li>
+                    <li>
+                        <i class="fas fa-phone"></i>
+                        <a href="tel:+5117154376">
+                            (01) 715 4376 / 715 4377
+                        </a>
+                    </li>
+                    <li>
+                        <i class="fab fa-whatsapp"></i>
+                        <a href="https://api.whatsapp.com/send?phone=51905447656" target="_blank">
+                            +51 905 447 656
+                        </a>
+                    </li>
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <a href="/cdn-cgi/l/email-protection#f8959d8a9b9d9c9d8bd6978bb89e978a8c919e949d80d69b9795">
+                            <span class="__cf_email__" data-cfemail="96fbf3e4f5f3f2f3e5b8f9e5d6f0f9e4e2fff0faf3eeb8f5f9fb">[email&#160;protected]</span>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 <span style="color: var(--accent-orange); font-weight: 600;">FORTIFLEX Perú</span>. Todos los derechos reservados.</p>
+                <p class="created-by">Created by Orse Atelier</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="contacto.js" defer></script>
+</body>
+</html>

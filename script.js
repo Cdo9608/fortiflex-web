@@ -199,3 +199,66 @@ window.addEventListener('error', (e) => {
 });
 
 console.log('✅ JavaScript cargado correctamente');
+// ============================================
+// MODAL DE CATÁLOGOS
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    const openModalBtn = document.getElementById('openCatalogModal');
+    const closeModalBtn = document.getElementById('closeCatalogModal');
+    const modal = document.getElementById('catalogModal');
+    
+    if (openModalBtn && modal) {
+        console.log('✅ Modal de catálogos inicializado');
+        
+        // Abrir modal
+        openModalBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            console.log('📂 Abriendo modal de catálogos');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+        
+        // Cerrar modal
+        if (closeModalBtn) {
+            closeModalBtn.addEventListener('click', function() {
+                console.log('❌ Cerrando modal de catálogos');
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            });
+        }
+        
+        // Cerrar al hacer click fuera del contenido
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                console.log('❌ Cerrando modal (click fuera)');
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Cerrar con tecla ESC
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                console.log('❌ Cerrando modal (ESC)');
+                modal.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+        });
+        
+        // Track descargas de catálogos
+        const downloadButtons = document.querySelectorAll('.catalog-download-btn');
+        downloadButtons.forEach(button => {
+            button.addEventListener('click', function() {
+                const catalogName = this.closest('.catalog-card').querySelector('h3').textContent;
+                console.log('📥 Descargando:', catalogName);
+                
+                // Aquí puedes agregar tracking con Google Analytics
+                // gtag('event', 'download', {
+                //     'event_category': 'Catalog',
+                //     'event_label': catalogName
+                // });
+            });
+        });
+    }
+});
