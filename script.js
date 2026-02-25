@@ -262,3 +262,116 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
+
+// ============================================
+// MENÚ HAMBURGUESA MÓVIL - VERSIÓN FINAL
+// ============================================
+
+document.addEventListener('DOMContentLoaded', function() {
+    const header = document.querySelector('.header-content');
+    const nav = document.querySelector('.main-nav');
+    
+    if (!header || !nav) {
+        console.log('❌ No se encontró header o nav');
+        return;
+    }
+    
+    console.log('📱 Inicializando menú móvil...');
+    
+    // Crear botón hamburguesa
+    const mobileToggle = document.createElement('button');
+    mobileToggle.className = 'mobile-menu-toggle';
+    mobileToggle.setAttribute('aria-label', 'Abrir menú');
+    mobileToggle.innerHTML = `
+        <span></span>
+        <span></span>
+        <span></span>
+    `;
+    
+    // Crear overlay
+    const overlay = document.createElement('div');
+    overlay.className = 'mobile-menu-overlay';
+    document.body.appendChild(overlay);
+    
+    // Insertar botón hamburguesa después del logo
+    const logo = header.querySelector('div');
+    if (logo) {
+        logo.after(mobileToggle);
+    } else {
+        header.appendChild(mobileToggle);
+    }
+    
+    // Función para abrir menú
+    function openMenu() {
+        nav.classList.add('active');
+        overlay.classList.add('active');
+        mobileToggle.classList.add('active');
+        document.body.classList.add('menu-open');
+        mobileToggle.setAttribute('aria-label', 'Cerrar menú');
+        console.log('✅ Menú abierto');
+    }
+    
+    // Función para cerrar menú
+    function closeMenu() {
+        nav.classList.remove('active');
+        overlay.classList.remove('active');
+        mobileToggle.classList.remove('active');
+        document.body.classList.remove('menu-open');
+        mobileToggle.setAttribute('aria-label', 'Abrir menú');
+        console.log('❌ Menú cerrado');
+    }
+    
+    // Toggle menú con hamburguesa
+    mobileToggle.addEventListener('click', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        const isActive = nav.classList.contains('active');
+        
+        if (isActive) {
+            closeMenu();
+        } else {
+            openMenu();
+        }
+    });
+    
+    // Cerrar al hacer click en overlay
+    overlay.addEventListener('click', function() {
+        closeMenu();
+    });
+    
+    // Cerrar al hacer click en un enlace del menú
+    const navLinks = nav.querySelectorAll('a');
+    console.log(`📄 Encontrados ${navLinks.length} enlaces en el menú`);
+    
+    navLinks.forEach(link => {
+        link.addEventListener('click', function() {
+            // Solo cerrar si estamos en móvil
+            if (window.innerWidth <= 968) {
+                setTimeout(() => {
+                    closeMenu();
+                }, 200);
+            }
+        });
+    });
+    
+    // Cerrar con tecla ESC
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && nav.classList.contains('active')) {
+            closeMenu();
+        }
+    });
+    
+    // Manejar resize de ventana
+    let resizeTimer;
+    window.addEventListener('resize', function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(function() {
+            if (window.innerWidth > 968 && nav.classList.contains('active')) {
+                closeMenu();
+            }
+        }, 250);
+    });
+    
+    console.log('✅ Menú hamburguesa inicializado correctamente');
+});
