@@ -159,14 +159,359 @@
     margin: 0.3rem 0 0 0;
 }
 
-/* Productos Grid */
+/* ============================================
+   NUEVA TARJETA GRANDE CON CARRUSEL
+   ============================================ */
+
+.producto-card-large {
+    background: var(--white);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 8px 40px rgba(0, 0, 0, 0.12);
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    margin-bottom: 3rem;
+}
+
+.producto-card-large:hover {
+    box-shadow: 0 12px 50px rgba(0, 0, 0, 0.18);
+    transform: translateY(-4px);
+}
+
+/* Carrusel de Imágenes */
+.producto-carousel {
+    position: relative;
+    background: linear-gradient(135deg, #f5f7fa 0%, #e8ecef 100%);
+    overflow: hidden;
+    min-height: 450px;
+}
+
+.carousel-container {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    overflow: hidden;
+}
+
+.carousel-track {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    visibility: visible;
+    z-index: 1;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    transition: opacity 0.3s ease;
+}
+
+.producto-carousel:hover .carousel-slide.active img {
+    opacity: 0.95;
+}
+
+/* Controles del Carrusel */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 59, 92, 0.75);
+    color: var(--white);
+    border: none;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    z-index: 10;
+    backdrop-filter: blur(10px);
+}
+
+.carousel-control:hover {
+    background: var(--secondary-blue);
+    transform: translateY(-50%) scale(1.1);
+    box-shadow: 0 4px 20px rgba(0, 102, 161, 0.4);
+}
+
+.carousel-control.prev {
+    left: 1.5rem;
+}
+
+.carousel-control.next {
+    right: 1.5rem;
+}
+
+.carousel-control i {
+    font-size: 1.2rem;
+}
+
+/* Indicadores del Carrusel */
+.carousel-indicators {
+    position: absolute;
+    bottom: 1.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.6rem;
+    z-index: 10;
+}
+
+.indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.indicator:hover {
+    background: rgba(255, 255, 255, 0.8);
+    transform: scale(1.2);
+}
+
+.indicator.active {
+    background: var(--white);
+    border-color: var(--secondary-blue);
+    width: 32px;
+    border-radius: 6px;
+}
+
+/* Contenido de la Tarjeta Grande */
+.producto-content-large {
+    padding: 2.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.producto-title-large {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.9rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin: 0;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.producto-description-large {
+    color: #555;
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin: 0;
+}
+
+.producto-description-large strong {
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+/* Grid de Especificaciones */
+.specs-grid-large {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.spec-card {
+    background: linear-gradient(135deg, #f8f9fa 0%, #e8ecef 100%);
+    padding: 1rem;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    transition: all 0.3s ease;
+    border: 2px solid transparent;
+}
+
+.spec-card:hover {
+    background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f1 100%);
+    border-color: var(--secondary-blue);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 102, 161, 0.15);
+}
+
+.spec-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.spec-icon i {
+    font-size: 1.3rem;
+    color: var(--white);
+}
+
+.spec-info {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.spec-label-large {
+    font-size: 0.85rem;
+    color: #888;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+.spec-value-large {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    font-weight: 700;
+}
+
+/* Sección de Aplicaciones */
+.applications-section {
+}
+
+.applications-title {
+    font-family: 'Rajdhani', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary-blue);
+    margin: 0 0 1rem 0;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    text-transform: uppercase;
+}
+
+.applications-title i {
+    color: var(--secondary-blue);
+}
+
+.producto-tags-large {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.8rem;
+}
+
+.tag-large:nth-child(4),
+.tag-large:nth-child(5) {
+    grid-column: span 1;
+}
+
+.producto-tags-large {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem;
+}
+
+.tag-large {
+    flex: 1 1 calc(33.333% - 0.6rem);
+    min-width: 150px;
+    padding: 0.8rem 1.2rem;
+    background: linear-gradient(135deg, #e8f4f8 0%, #d4e9f1 100%);
+    color: var(--secondary-blue);
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    border: 2px solid rgba(0, 102, 161, 0.2);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    justify-content: center;
+}
+
+.tag-large:hover {
+    background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+    color: var(--white);
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 102, 161, 0.3);
+}
+
+.tag-large i {
+    font-size: 1.1rem;
+}
+
+/* Botón de Cotización Grande */
+.btn-cotizar-large {
+    width: 100%;
+    padding: 1.2rem 2rem;
+    background: linear-gradient(135deg, #25D366 0%, #1ea952 100%);
+    color: var(--white);
+    border: none;
+    border-radius: 16px;
+    font-weight: 700;
+    font-size: 1.05rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    box-shadow: 0 6px 25px rgba(37, 211, 102, 0.4);
+}
+
+.btn-cotizar-large:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 35px rgba(37, 211, 102, 0.5);
+    background: linear-gradient(135deg, #1ea952 0%, #25D366 100%);
+}
+
+.btn-cotizar-large:active {
+    transform: translateY(-2px);
+}
+
+.btn-cotizar-large i:first-child {
+    font-size: 1.5rem;
+}
+
+.btn-cotizar-large i:last-child {
+    font-size: 1.2rem;
+}
+
+/* ============================================
+   PRODUCTOS GRID (Para otras categorías)
+   ============================================ */
+
 .productos-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
     gap: 2rem;
 }
 
-/* Producto Card */
+/* Producto Card (categorías normales) */
 .producto-card {
     background: var(--white);
     border-radius: 20px;
@@ -464,9 +809,31 @@
 }
 
 /* Responsive Design */
+@media (max-width: 1400px) {
+    .producto-card-large {
+        grid-template-columns: 1fr 1.3fr;
+    }
+}
+
 @media (max-width: 1200px) {
     .productos-grid {
         grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+    }
+    
+    .producto-card-large {
+        grid-template-columns: 1fr;
+    }
+    
+    .producto-carousel {
+        min-height: 400px;
+    }
+    
+    .specs-grid-large {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .producto-tags-large {
+        grid-template-columns: repeat(2, 1fr);
     }
 }
 
@@ -491,6 +858,18 @@
     .filter-btn {
         padding: 0.7rem 1.5rem;
         font-size: 0.9rem;
+    }
+    
+    .producto-content-large {
+        padding: 2.5rem;
+    }
+    
+    .producto-title-large {
+        font-size: 1.9rem;
+    }
+    
+    .features-list {
+        grid-template-columns: 1fr;
     }
 }
 
@@ -574,6 +953,45 @@
         width: 100%;
         justify-content: center;
     }
+    
+    /* Tarjeta Grande Responsive */
+    .producto-carousel {
+        min-height: 350px;
+    }
+    
+    .producto-content-large {
+        padding: 2rem;
+    }
+    
+    .producto-title-large {
+        font-size: 1.6rem;
+    }
+    
+    .producto-description-large {
+        font-size: 0.95rem;
+    }
+    
+    .specs-grid-large {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .producto-tags-large {
+        grid-template-columns: 1fr;
+    }
+    
+    .carousel-control {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-control.prev {
+        left: 1rem;
+    }
+    
+    .carousel-control.next {
+        right: 1rem;
+    }
 }
 
 @media (max-width: 576px) {
@@ -618,6 +1036,42 @@
         padding: 0.9rem;
         font-size: 0.95rem;
     }
+    
+    .producto-content-large {
+        padding: 1.5rem;
+        gap: 1.5rem;
+    }
+    
+    .producto-title-large {
+        font-size: 1.4rem;
+    }
+    
+    .producto-description-large {
+        font-size: 0.9rem;
+    }
+    
+    .spec-card {
+        padding: 1rem;
+    }
+    
+    .spec-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .spec-icon i {
+        font-size: 1.2rem;
+    }
+    
+    .features-section,
+    .applications-section {
+        padding: 1.5rem;
+    }
+    
+    .btn-cotizar-large {
+        padding: 1.2rem 1.5rem;
+        font-size: 1rem;
+    }
 }
 
 /* Filtrado de productos */
@@ -627,9 +1081,12 @@
 
 /* Smooth Transitions */
 .producto-card,
+.producto-card-large,
 .filter-btn,
 .btn-cotizar,
-.producto-tags .tag {
+.btn-cotizar-large,
+.producto-tags .tag,
+.tag-large {
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -639,17 +1096,21 @@
     .main-header,
     .filters-section,
     .cta-section,
-    .footer {
+    .footer,
+    .carousel-control,
+    .carousel-indicators {
         display: none;
     }
 
-    .producto-card {
+    .producto-card,
+    .producto-card-large {
         break-inside: avoid;
         box-shadow: none;
         border: 1px solid #ddd;
     }
 
-    .btn-cotizar {
+    .btn-cotizar,
+    .btn-cotizar-large {
         display: none;
     }
 }

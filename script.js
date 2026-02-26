@@ -1,16 +1,36 @@
+// ============================================
+// CARRUSEL CON 6 SLIDES
+// ============================================
+
 const slides = document.querySelectorAll('.carousel-slide');
 const dots = document.querySelectorAll('.carousel-dot');
 let currentSlide = 0;
-const slideInterval = 5000;
+const slideInterval = 4000; // 8 segundos por slide para evitar saltos
+let carouselTimer;
+let isTransitioning = false; // Evitar transiciones múltiples
 
 function showSlide(n) {
+    // Evitar múltiples transiciones simultáneas
+    if (isTransitioning) return;
+    isTransitioning = true;
+    
+    // Remover clase active de todos
     slides.forEach(slide => slide.classList.remove('active'));
     dots.forEach(dot => dot.classList.remove('active'));
     
+    // Calcular índice correcto
     currentSlide = (n + slides.length) % slides.length;
     
+    // Agregar clase active
     slides[currentSlide].classList.add('active');
     dots[currentSlide].classList.add('active');
+    
+    console.log('✨ Mostrando slide:', currentSlide + 1, 'de', slides.length);
+    
+    // Permitir nuevas transiciones después de 1.5 segundos
+    setTimeout(() => {
+        isTransitioning = false;
+    }, 1500);
 }
 
 function nextSlide() {
@@ -21,25 +41,45 @@ function prevSlide() {
     showSlide(currentSlide - 1);
 }
 
-let carouselTimer = setInterval(nextSlide, slideInterval);
+// Auto-play del carrusel
+function startCarousel() {
+    carouselTimer = setInterval(nextSlide, slideInterval);
+}
 
+function stopCarousel() {
+    clearInterval(carouselTimer);
+}
+
+function restartCarousel() {
+    stopCarousel();
+    startCarousel();
+}
+
+// Iniciar carrusel
+startCarousel();
+
+// Click en dots
 dots.forEach((dot, index) => {
     dot.addEventListener('click', () => {
         showSlide(index);
-        clearInterval(carouselTimer);
-        carouselTimer = setInterval(nextSlide, slideInterval);
+        restartCarousel();
     });
 });
 
+// Pause al hover sobre el carrusel
 const carousel = document.querySelector('.hero-carousel');
 
-carousel.addEventListener('mouseenter', () => {
-    clearInterval(carouselTimer);
-});
+if (carousel) {
+    carousel.addEventListener('mouseenter', () => {
+        stopCarousel();
+        console.log('⏸️ Carrusel pausado');
+    });
 
-carousel.addEventListener('mouseleave', () => {
-    carouselTimer = setInterval(nextSlide, slideInterval);
-});
+    carousel.addEventListener('mouseleave', () => {
+        startCarousel();
+        console.log('▶️ Carrusel reanudado');
+    });
+}
 
 // FLECHAS DE NAVEGACIÓN
 const prevBtn = document.querySelector('.carousel-prev');
@@ -48,18 +88,18 @@ const nextBtn = document.querySelector('.carousel-next');
 if (prevBtn) {
     prevBtn.addEventListener('click', () => {
         prevSlide();
-        clearInterval(carouselTimer);
-        carouselTimer = setInterval(nextSlide, slideInterval);
+        restartCarousel();
     });
 }
 
 if (nextBtn) {
     nextBtn.addEventListener('click', () => {
         nextSlide();
-        clearInterval(carouselTimer);
-        carouselTimer = setInterval(nextSlide, slideInterval);
+        restartCarousel();
     });
 }
+
+console.log('✅ Carrusel inicializado -', slides.length, 'slides con fondo personalizado');
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {

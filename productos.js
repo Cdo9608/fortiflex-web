@@ -9,9 +9,192 @@ document.addEventListener('DOMContentLoaded', function() {
     initFilters();
     initScrollAnimations();
     initSmoothScroll();
+    initCarousel(); // Nueva función para el carrusel
     
     console.log('✅ Página Productos inicializada correctamente');
 });
+
+// ============================================
+// SISTEMA DE CARRUSEL AUTOMÁTICO
+// ============================================
+
+function initCarousel() {
+    console.log('🎠 Intentando inicializar carrusel...');
+    
+    const carousel = document.querySelector('.producto-carousel');
+    if (!carousel) {
+        console.log('⚠️ No se encontró .producto-carousel en la página');
+        return;
+    }
+    console.log('✅ Carrusel encontrado:', carousel);
+
+    const track = carousel.querySelector('.carousel-track');
+    const slides = carousel.querySelectorAll('.carousel-slide');
+    const indicators = carousel.querySelectorAll('.indicator');
+    const prevBtn = carousel.querySelector('.carousel-control.prev');
+    const nextBtn = carousel.querySelector('.carousel-control.next');
+
+    console.log('📊 Elementos encontrados:');
+    console.log('- Track:', track);
+    console.log('- Slides:', slides.length);
+    console.log('- Indicators:', indicators.length);
+    console.log('- Prev button:', prevBtn);
+    console.log('- Next button:', nextBtn);
+
+    if (slides.length === 0) {
+        console.log('⚠️ No hay slides en el carrusel');
+        return;
+    }
+
+    console.log(`🎠 Carrusel inicializado correctamente con ${slides.length} slides`);
+
+    let currentSlide = 0;
+    let autoplayInterval;
+    const AUTOPLAY_DELAY = 3000; // 4 segundos entre cambios
+
+    // Función para mostrar un slide específico
+    function showSlide(index) {
+        // Normalizar el índice
+        if (index >= slides.length) {
+            currentSlide = 0;
+        } else if (index < 0) {
+            currentSlide = slides.length - 1;
+        } else {
+            currentSlide = index;
+        }
+
+        // Remover clase active de todos los slides e indicadores
+        slides.forEach(slide => slide.classList.remove('active'));
+        indicators.forEach(indicator => indicator.classList.remove('active'));
+
+        // Agregar clase active al slide e indicador actual
+        slides[currentSlide].classList.add('active');
+        if (indicators[currentSlide]) {
+            indicators[currentSlide].classList.add('active');
+        }
+
+        console.log(`📍 Mostrando slide ${currentSlide + 1} de ${slides.length}`);
+    }
+
+    // Función para ir al siguiente slide
+    function nextSlide() {
+        showSlide(currentSlide + 1);
+    }
+
+    // Función para ir al slide anterior
+    function prevSlide() {
+        showSlide(currentSlide - 1);
+    }
+
+    // Iniciar autoplay
+    function startAutoplay() {
+        stopAutoplay(); // Detener cualquier autoplay existente
+        autoplayInterval = setInterval(nextSlide, AUTOPLAY_DELAY);
+        console.log('▶️ Autoplay iniciado');
+    }
+
+    // Detener autoplay
+    function stopAutoplay() {
+        if (autoplayInterval) {
+            clearInterval(autoplayInterval);
+            console.log('⏸️ Autoplay detenido');
+        }
+    }
+
+    // Event listeners para los controles
+    if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+            nextSlide();
+            stopAutoplay();
+            setTimeout(startAutoplay, 8000); // Reiniciar autoplay después de 8s
+        });
+    }
+
+    if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+            prevSlide();
+            stopAutoplay();
+            setTimeout(startAutoplay, 8000); // Reiniciar autoplay después de 8s
+        });
+    }
+
+    // Event listeners para los indicadores
+    indicators.forEach((indicator, index) => {
+        indicator.addEventListener('click', () => {
+            showSlide(index);
+            stopAutoplay();
+            setTimeout(startAutoplay, 8000); // Reiniciar autoplay después de 8s
+        });
+    });
+
+    // Pausar autoplay cuando el mouse está sobre el carrusel
+    carousel.addEventListener('mouseenter', () => {
+        stopAutoplay();
+    });
+
+    // Reanudar autoplay cuando el mouse sale del carrusel
+    carousel.addEventListener('mouseleave', () => {
+        startAutoplay();
+    });
+
+    // Pausar autoplay cuando la pestaña no está visible
+    document.addEventListener('visibilitychange', () => {
+        if (document.hidden) {
+            stopAutoplay();
+        } else {
+            startAutoplay();
+        }
+    });
+
+    // Soporte para gestos táctiles (móviles)
+    let touchStartX = 0;
+    let touchEndX = 0;
+
+    carousel.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoplay();
+    });
+
+    carousel.addEventListener('touchend', (e) => {
+        touchEndX = e.changedTouches[0].screenX;
+        handleSwipe();
+        setTimeout(startAutoplay, 8000);
+    });
+
+    function handleSwipe() {
+        const swipeThreshold = 50; // Píxeles mínimos para considerar un swipe
+        const diff = touchStartX - touchEndX;
+
+        if (Math.abs(diff) > swipeThreshold) {
+            if (diff > 0) {
+                // Swipe izquierda - siguiente
+                nextSlide();
+            } else {
+                // Swipe derecha - anterior
+                prevSlide();
+            }
+        }
+    }
+
+    // Soporte para teclado
+    document.addEventListener('keydown', (e) => {
+        if (!carousel.matches(':hover')) return;
+
+        if (e.key === 'ArrowLeft') {
+            prevSlide();
+            stopAutoplay();
+            setTimeout(startAutoplay, 8000);
+        } else if (e.key === 'ArrowRight') {
+            nextSlide();
+            stopAutoplay();
+            setTimeout(startAutoplay, 8000);
+        }
+    });
+
+    // Iniciar el carrusel
+    showSlide(0);
+    startAutoplay();
+}
 
 // ============================================
 // SISTEMA DE FILTROS
@@ -20,6 +203,7 @@ document.addEventListener('DOMContentLoaded', function() {
 function initFilters() {
     const filterButtons = document.querySelectorAll('.filter-btn');
     const productCards = document.querySelectorAll('.producto-card');
+    const productCardsLarge = document.querySelectorAll('.producto-card-large');
     const categories = document.querySelectorAll('.productos-category');
 
     if (filterButtons.length === 0) {
@@ -51,6 +235,10 @@ function initFilters() {
                     card.classList.remove('hidden');
                     animateCard(card);
                 });
+                productCardsLarge.forEach(card => {
+                    card.classList.remove('hidden');
+                    animateCard(card);
+                });
             } else {
                 // Mostrar solo la categoría seleccionada
                 categories.forEach(category => {
@@ -62,8 +250,20 @@ function initFilters() {
                     }
                 });
                 
-                // Filtrar tarjetas
+                // Filtrar tarjetas normales
                 productCards.forEach(card => {
+                    const cardCategory = card.getAttribute('data-category');
+                    
+                    if (cardCategory === filter) {
+                        card.classList.remove('hidden');
+                        animateCard(card);
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+                
+                // Filtrar tarjetas grandes
+                productCardsLarge.forEach(card => {
                     const cardCategory = card.getAttribute('data-category');
                     
                     if (cardCategory === filter) {
@@ -101,53 +301,18 @@ function animateCard(card) {
 }
 
 // ============================================
-// FUNCIÓN DE COTIZACIÓN POR WHATSAPP
-// ============================================
-
-function cotizarProducto(nombreProducto) {
-    console.log(`📱 Cotizando producto: ${nombreProducto}`);
-    
-    // Preparar mensaje para WhatsApp
-    const mensaje = `🔷 *SOLICITUD DE COTIZACIÓN - FORTIFLEX*
-
-📦 *Producto:* ${nombreProducto}
-
-👤 *Nombre:* [Por favor ingresa tu nombre]
-🏢 *Empresa:* [Nombre de tu empresa]
-📧 *Email:* [Tu correo electrónico]
-📞 *Teléfono:* [Tu número de contacto]
-
-💬 *Consulta:*
-[Describe tu proyecto o necesidad]
-
----
-_Enviado desde www.fortiflex.com.pe/productos_`;
-
-    // Número de WhatsApp de FORTIFLEX
-    const whatsappNumber = '51905447656';
-    
-    // Crear URL de WhatsApp
-    const whatsappURL = `https://api.whatsapp.com/send?phone=${whatsappNumber}&text=${encodeURIComponent(mensaje)}`;
-    
-    // Abrir WhatsApp en nueva pestaña
-    window.open(whatsappURL, '_blank');
-    
-    // Tracking de evento (opcional - para analytics)
-    trackEvent('Cotización', 'Click', nombreProducto);
-}
-
-// ============================================
 // ANIMACIONES AL HACER SCROLL
 // ============================================
 
 function initScrollAnimations() {
-    const animatedElements = document.querySelectorAll(
-        '.producto-card, .category-header'
-    );
-
-    if (animatedElements.length === 0) {
+    const elements = document.querySelectorAll('.producto-card, .producto-card-large, .category-header');
+    
+    if (elements.length === 0) {
+        console.log('⚠️ No se encontraron elementos para animar');
         return;
     }
+
+    console.log(`🎬 Inicializadas animaciones de scroll para ${elements.length} elementos`);
 
     const observerOptions = {
         threshold: 0.1,
@@ -159,187 +324,82 @@ function initScrollAnimations() {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
-                observer.unobserve(entry.target);
             }
         });
     }, observerOptions);
 
-    animatedElements.forEach((element, index) => {
+    elements.forEach(element => {
         element.style.opacity = '0';
         element.style.transform = 'translateY(30px)';
-        element.style.transition = `all 0.6s cubic-bezier(0.4, 0, 0.2, 1) ${index * 0.1}s`;
+        element.style.transition = 'all 0.6s ease';
         observer.observe(element);
     });
 }
 
 // ============================================
-// SMOOTH SCROLL PARA ENLACES INTERNOS
+// SCROLL SUAVE PARA NAVEGACIÓN
 // ============================================
 
 function initSmoothScroll() {
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            
-            if (target) {
-                const headerOffset = 150;
-                const elementPosition = target.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    const links = document.querySelectorAll('a[href^="#"]');
+    
+    if (links.length === 0) {
+        console.log('ℹ️ No se encontraron enlaces de anclaje');
+        return;
+    }
 
+    console.log(`🔗 Inicializado scroll suave para ${links.length} enlaces`);
+
+    links.forEach(link => {
+        link.addEventListener('click', function(e) {
+            const targetId = this.getAttribute('href');
+            
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            
+            if (targetElement) {
+                e.preventDefault();
+                
+                const offsetTop = targetElement.offsetTop - 100;
+                
                 window.scrollTo({
-                    top: offsetPosition,
+                    top: offsetTop,
                     behavior: 'smooth'
                 });
+
+                console.log(`📍 Scroll a: ${targetId}`);
             }
         });
     });
 }
 
 // ============================================
-// TRACKING DE EVENTOS (Para Analytics)
+// FUNCIÓN DE COTIZACIÓN (VÍA WHATSAPP)
 // ============================================
 
-function trackEvent(category, action, label) {
-    console.log(`📊 Evento: ${category} - ${action} - ${label}`);
+function cotizarProducto(nombreProducto) {
+    const telefono = '51905447656';
+    const mensaje = `Hola, estoy interesado en obtener una cotización para: ${nombreProducto}`;
+    const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
     
-    // Integración con Google Analytics (descomentar si usas GA)
-    // if (typeof gtag !== 'undefined') {
-    //     gtag('event', action, {
-    //         'event_category': category,
-    //         'event_label': label
-    //     });
-    // }
+    console.log(`💬 Abriendo WhatsApp para cotizar: ${nombreProducto}`);
     
-    // Integración con Facebook Pixel (descomentar si usas FB Pixel)
-    // if (typeof fbq !== 'undefined') {
-    //     fbq('track', 'ViewContent', {
-    //         content_name: label,
-    //         content_category: category
-    //     });
-    // }
+    window.open(url, '_blank');
 }
 
 // ============================================
-// MANEJO DE HASH EN URL
+// SCROLL TO TOP
 // ============================================
 
-// Al cargar la página, verificar si hay un hash en la URL
-window.addEventListener('load', function() {
-    if (window.location.hash) {
-        const hash = window.location.hash.substring(1); // Remover el #
-        
-        // Si el hash es una categoría, activar el filtro correspondiente
-        const filterButtons = document.querySelectorAll('.filter-btn');
-        filterButtons.forEach(button => {
-            if (button.getAttribute('data-filter') === hash) {
-                setTimeout(() => {
-                    button.click();
-                }, 500);
-            }
-        });
-    }
-});
+// Crear botón scroll to top si no existe
+function createScrollToTopButton() {
+    const existingBtn = document.getElementById('scrollToTop');
+    if (existingBtn) return;
 
-// ============================================
-// DETECCIÓN DE DISPOSITIVO MÓVIL
-// ============================================
-
-function isMobile() {
-    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-}
-
-if (isMobile()) {
-    console.log('📱 Dispositivo móvil detectado');
-    
-    // Optimizaciones para móvil
-    const productCards = document.querySelectorAll('.producto-card');
-    productCards.forEach(card => {
-        // Mejorar tap targets en móvil
-        card.style.minHeight = '44px';
-    });
-}
-
-// ============================================
-// LAZY LOADING DE IMÁGENES
-// ============================================
-
-function initLazyLoading() {
-    const images = document.querySelectorAll('.producto-image img');
-    
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target;
-                
-                if (img.dataset.src) {
-                    img.src = img.dataset.src;
-                    img.removeAttribute('data-src');
-                }
-                
-                observer.unobserve(img);
-            }
-        });
-    });
-
-    images.forEach(img => {
-        imageObserver.observe(img);
-    });
-}
-
-// Inicializar lazy loading si hay imágenes con data-src
-if (document.querySelector('img[data-src]')) {
-    initLazyLoading();
-}
-
-// ============================================
-// CONTADOR DE PRODUCTOS
-// ============================================
-
-function updateProductCount() {
-    const visibleProducts = document.querySelectorAll('.producto-card:not(.hidden)');
-    console.log(`📦 Mostrando ${visibleProducts.length} productos`);
-}
-
-// ============================================
-// BÚSQUEDA RÁPIDA (Opcional - para implementación futura)
-// ============================================
-
-function initQuickSearch() {
-    const searchInput = document.getElementById('productSearch');
-    
-    if (!searchInput) return;
-    
-    searchInput.addEventListener('input', function(e) {
-        const searchTerm = e.target.value.toLowerCase();
-        const productCards = document.querySelectorAll('.producto-card');
-        
-        productCards.forEach(card => {
-            const title = card.querySelector('.producto-title').textContent.toLowerCase();
-            const description = card.querySelector('.producto-description').textContent.toLowerCase();
-            const tags = Array.from(card.querySelectorAll('.tag')).map(tag => tag.textContent.toLowerCase()).join(' ');
-            
-            const searchContent = `${title} ${description} ${tags}`;
-            
-            if (searchContent.includes(searchTerm)) {
-                card.classList.remove('hidden');
-            } else {
-                card.classList.add('hidden');
-            }
-        });
-        
-        updateProductCount();
-    });
-}
-
-// ============================================
-// SCROLL TO TOP BUTTON
-// ============================================
-
-function initScrollToTop() {
     const scrollBtn = document.createElement('button');
-    scrollBtn.innerHTML = '<i class="fas fa-chevron-up"></i>';
-    scrollBtn.className = 'scroll-to-top';
+    scrollBtn.id = 'scrollToTop';
+    scrollBtn.innerHTML = '<i class="fas fa-arrow-up"></i>';
     scrollBtn.style.cssText = `
         position: fixed;
         bottom: 30px;
@@ -351,102 +411,106 @@ function initScrollToTop() {
         color: white;
         border: none;
         cursor: pointer;
-        opacity: 0;
-        visibility: hidden;
-        transition: all 0.3s ease;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.2rem;
+        box-shadow: 0 4px 15px rgba(0, 102, 161, 0.4);
         z-index: 1000;
-        box-shadow: 0 4px 15px rgba(0, 102, 161, 0.3);
+        transition: all 0.3s ease;
     `;
-    
-    document.body.appendChild(scrollBtn);
-    
-    window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 500) {
-            scrollBtn.style.opacity = '1';
-            scrollBtn.style.visibility = 'visible';
-        } else {
-            scrollBtn.style.opacity = '0';
-            scrollBtn.style.visibility = 'hidden';
-        }
-    });
-    
+
     scrollBtn.addEventListener('click', () => {
         window.scrollTo({
             top: 0,
             behavior: 'smooth'
         });
     });
-}
 
-initScrollToTop();
-
-// ============================================
-// MANEJO DE ERRORES DE IMÁGENES
-// ============================================
-
-document.querySelectorAll('.producto-image img').forEach(img => {
-    img.addEventListener('error', function() {
-        console.error('❌ Error al cargar imagen:', this.src);
-        // Imagen placeholder
-        this.src = 'images/placeholder-producto.png';
-        this.alt = 'Imagen no disponible';
+    scrollBtn.addEventListener('mouseenter', () => {
+        scrollBtn.style.transform = 'translateY(-5px)';
+        scrollBtn.style.boxShadow = '0 6px 20px rgba(0, 102, 161, 0.5)';
     });
-});
 
-// ============================================
-// PERFORMANCE: Intersection Observer para animaciones
-// ============================================
-
-if ('IntersectionObserver' in window) {
-    console.log('✅ IntersectionObserver disponible');
-} else {
-    console.warn('⚠️ IntersectionObserver no disponible - usando fallback');
-    // Fallback para navegadores antiguos
-    document.querySelectorAll('.producto-card').forEach(card => {
-        card.style.opacity = '1';
-        card.style.transform = 'translateY(0)';
+    scrollBtn.addEventListener('mouseleave', () => {
+        scrollBtn.style.transform = 'translateY(0)';
+        scrollBtn.style.boxShadow = '0 4px 15px rgba(0, 102, 161, 0.4)';
     });
+
+    document.body.appendChild(scrollBtn);
+
+    // Mostrar/ocultar botón según scroll
+    window.addEventListener('scroll', () => {
+        if (window.pageYOffset > 300) {
+            scrollBtn.style.display = 'flex';
+        } else {
+            scrollBtn.style.display = 'none';
+        }
+    });
+
+    console.log('⬆️ Botón scroll to top creado');
 }
 
-// ============================================
-// MENSAJES DE CONSOLA
-// ============================================
-
-console.log('%c✅ JavaScript de Productos cargado', 'color: #6DB33F; font-weight: bold; font-size: 14px;');
-console.log('%c📦 20 productos disponibles en catálogo', 'color: #003B5C; font-size: 12px;');
-console.log('%c📱 Contáctanos: +51 905 447 656', 'color: #003B5C; font-size: 12px;');
-console.log('%c💼 ¿Necesitas cotizar? Click en cualquier botón "Cotizar"', 'color: #25D366; font-size: 12px;');
+// Inicializar botón scroll to top
+createScrollToTopButton();
 
 // ============================================
-// PREVENIR SCROLL HORIZONTAL
+// LAZY LOADING DE IMÁGENES
 // ============================================
 
-document.body.style.overflowX = 'hidden';
-
-// ============================================
-// COMPATIBILIDAD CON NAVEGADORES ANTIGUOS
-// ============================================
-
-// Polyfill para forEach en NodeList (IE11)
-if (window.NodeList && !NodeList.prototype.forEach) {
-    NodeList.prototype.forEach = Array.prototype.forEach;
-}
-
-// ============================================
-// EXPORTAR FUNCIÓN PARA USO GLOBAL
-// ============================================
-
-// Hacer la función cotizarProducto disponible globalmente
-window.cotizarProducto = cotizarProducto;
-
-// ============================================
-// DETECCIÓN DE BLOQUEADORES DE ANUNCIOS
-// ============================================
-
-// Opcional: detectar si hay bloqueador de anuncios que podría afectar tracking
-window.addEventListener('load', function() {
-    // Verificar si scripts de analytics se cargaron
-    if (typeof gtag === 'undefined' && typeof fbq === 'undefined') {
-        console.log('ℹ️ Scripts de analytics no detectados (puede ser por bloqueador de anuncios)');
+function initLazyLoading() {
+    const images = document.querySelectorAll('img[data-src]');
+    
+    if (images.length === 0) {
+        console.log('ℹ️ No hay imágenes con lazy loading');
+        return;
     }
+
+    console.log(`🖼️ Inicializado lazy loading para ${images.length} imágenes`);
+
+    const imageObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const img = entry.target;
+                img.src = img.dataset.src;
+                img.removeAttribute('data-src');
+                observer.unobserve(img);
+            }
+        });
+    });
+
+    images.forEach(img => imageObserver.observe(img));
+}
+
+initLazyLoading();
+
+// ============================================
+// PERFORMANCE MONITORING
+// ============================================
+
+// Log de tiempo de carga
+window.addEventListener('load', () => {
+    const loadTime = window.performance.timing.domContentLoadedEventEnd - 
+                     window.performance.timing.navigationStart;
+    console.log(`⚡ Página cargada en ${loadTime}ms`);
 });
+
+// ============================================
+// UTILIDADES
+// ============================================
+
+// Detectar dispositivo móvil
+function isMobile() {
+    return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+}
+
+if (isMobile()) {
+    console.log('📱 Dispositivo móvil detectado');
+    document.body.classList.add('is-mobile');
+} else {
+    console.log('💻 Dispositivo de escritorio detectado');
+    document.body.classList.add('is-desktop');
+}
+
+// Exportar funciones para uso global
+window.cotizarProducto = cotizarProducto;
