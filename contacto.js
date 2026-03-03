@@ -5,14 +5,80 @@
 document.addEventListener('DOMContentLoaded', function() {
     console.log('🚀 Inicializando página Contacto...');
     
-    // Inicializar funciones
     initContactForm();
     initFAQAccordion();
     initScrollAnimations();
     initCatalogModal();
+    initVendorTeam();
     
     console.log('✅ Página Contacto inicializada correctamente');
 });
+
+// ============================================
+// EQUIPO DE ASESORES - Efecto 3D + Toggle
+// ============================================
+
+function initVendorTeam() {
+    const cards = document.querySelectorAll('.vendor-card');
+
+    if (cards.length === 0) {
+        console.log('⚠️ No se encontraron tarjetas de vendedores');
+        return;
+    }
+
+    console.log(`👥 Inicializadas ${cards.length} tarjetas de asesores`);
+
+    cards.forEach(card => {
+        const inner = card.querySelector('.card-inner');
+
+        // ── Efecto 3D tilt al mover el mouse ──
+        card.addEventListener('mousemove', function(e) {
+            // No aplicar tilt si la tarjeta está expandida
+            if (card.classList.contains('active')) return;
+
+            const rect = inner.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const cx = rect.width / 2;
+            const cy = rect.height / 2;
+            const rotateX = ((y - cy) / cy) * -10;
+            const rotateY = ((x - cx) / cx) * 10;
+
+            inner.style.transform = `perspective(700px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateZ(8px)`;
+        });
+
+        card.addEventListener('mouseleave', function() {
+            if (!card.classList.contains('active')) {
+                inner.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+            }
+        });
+
+        // ── Toggle al hacer clic ──
+        card.addEventListener('click', function(e) {
+            // Si el clic fue dentro de un enlace (<a>), no colapsar
+            if (e.target.closest('a')) return;
+
+            const isActive = card.classList.contains('active');
+
+            // Cerrar todas las tarjetas
+            cards.forEach(c => {
+                c.classList.remove('active');
+                c.querySelector('.card-inner').style.transform =
+                    'perspective(700px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
+            });
+
+            // Abrir la tarjeta clicada si no estaba abierta
+            if (!isActive) {
+                card.classList.add('active');
+                inner.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) translateZ(14px)';
+                // Scroll suave para que se vea el panel desplegado
+                setTimeout(() => {
+                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }, 120);
+            }
+        });
+    });
+}
 
 // ============================================
 // MODAL DE CATÁLOGO
@@ -30,20 +96,17 @@ function initCatalogModal() {
     
     console.log('📦 Modal de catálogo inicializado');
     
-    // Abrir modal
     openBtn.addEventListener('click', function(e) {
         e.preventDefault();
         modal.classList.add('open');
         document.body.classList.add('modal-open');
     });
     
-    // Cerrar con botón X
     closeBtn.addEventListener('click', function() {
         modal.classList.remove('open');
         document.body.classList.remove('modal-open');
     });
     
-    // Cerrar clickeando el fondo oscuro
     modal.addEventListener('click', function(e) {
         if (e.target === modal) {
             modal.classList.remove('open');
@@ -51,7 +114,6 @@ function initCatalogModal() {
         }
     });
     
-    // Cerrar con ESC
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && modal.classList.contains('open')) {
             modal.classList.remove('open');
@@ -60,7 +122,10 @@ function initCatalogModal() {
     });
 }
 
-// Manejo del formulario de contacto
+// ============================================
+// FORMULARIO DE CONTACTO
+// ============================================
+
 function initContactForm() {
     const form = document.getElementById('contactForm');
     const successMessage = document.getElementById('successMessage');
@@ -77,7 +142,6 @@ function initContactForm() {
         
         console.log('📤 Enviando formulario...');
         
-        // Obtener datos del formulario
         const formData = {
             nombre: document.getElementById('nombre').value,
             empresa: document.getElementById('empresa').value || 'No especificada',
@@ -90,13 +154,11 @@ function initContactForm() {
         
         console.log('📊 Datos del formulario:', formData);
         
-        // Validación básica
         if (!formData.nombre || !formData.email || !formData.telefono || !formData.mensaje) {
             alert('Por favor completa todos los campos obligatorios');
             return;
         }
         
-        // Preparar mensaje para WhatsApp
         const whatsappMessage = `📝 *NUEVA SOLICITUD DE CONTACTO - FORTIFLEX*
 
 👤 *Nombre:* ${formData.nombre}
@@ -112,33 +174,31 @@ ${formData.mensaje}
 ---
 _Enviado desde www.fortiflex.com.pe_`;
         
-        // Botón loading
         const btn = form.querySelector('.btn-submit');
         const btnText = btn.innerHTML;
         
         btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Redirigiendo a WhatsApp...';
         btn.disabled = true;
         
-        // Esperar 1 segundo y abrir WhatsApp
         setTimeout(function() {
             console.log('✅ Abriendo WhatsApp...');
             
-            // Abrir WhatsApp con el mensaje
             const whatsappURL = `https://api.whatsapp.com/send?phone=51905447656&text=${encodeURIComponent(whatsappMessage)}`;
             window.open(whatsappURL, '_blank');
             
-            // Mostrar mensaje de éxito
             form.style.display = 'none';
             successMessage.style.display = 'block';
             
-            // Scroll al mensaje de éxito
             successMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
             
         }, 1000);
     });
 }
 
-// Sistema de FAQ Accordion
+// ============================================
+// FAQ ACCORDION
+// ============================================
+
 function initFAQAccordion() {
     const faqItems = document.querySelectorAll('.faq-item');
     
@@ -153,14 +213,12 @@ function initFAQAccordion() {
         const question = item.querySelector('.faq-question');
         
         question.addEventListener('click', function() {
-            // Cerrar otros items abiertos
             faqItems.forEach(otherItem => {
                 if (otherItem !== item && otherItem.classList.contains('active')) {
                     otherItem.classList.remove('active');
                 }
             });
             
-            // Toggle el item actual
             item.classList.toggle('active');
             
             console.log('❓ FAQ toggled:', question.querySelector('h4').textContent);
@@ -168,15 +226,16 @@ function initFAQAccordion() {
     });
 }
 
-// Animaciones al hacer scroll
+// ============================================
+// ANIMACIONES SCROLL
+// ============================================
+
 function initScrollAnimations() {
     const animatedElements = document.querySelectorAll(
         '.animate-fade-up, .animate-fade-right, .animate-fade-left'
     );
 
-    if (animatedElements.length === 0) {
-        return;
-    }
+    if (animatedElements.length === 0) return;
 
     const observerOptions = {
         threshold: 0.15,
@@ -201,7 +260,10 @@ function initScrollAnimations() {
     });
 }
 
-// Validación en tiempo real de email
+// ============================================
+// VALIDACIÓN EN TIEMPO REAL
+// ============================================
+
 document.addEventListener('DOMContentLoaded', function() {
     const emailInput = document.getElementById('email');
     
@@ -220,21 +282,22 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// Validación en tiempo real de teléfono
 document.addEventListener('DOMContentLoaded', function() {
     const telInput = document.getElementById('telefono');
     
     if (telInput) {
         telInput.addEventListener('input', function() {
-            // Permitir solo números, +, espacios y guiones
             this.value = this.value.replace(/[^\d\s\+\-]/g, '');
         });
     }
 });
 
-// Smooth scroll para enlaces internos
+// ============================================
+// SMOOTH SCROLL
+// ============================================
+
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
+    anchor.addEventListener('click', function(e) {
         e.preventDefault();
         const target = document.querySelector(this.getAttribute('href'));
         
@@ -251,16 +314,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Detectar si el usuario está en un dispositivo móvil
+// ============================================
+// MOBILE DETECTION
+// ============================================
+
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
-// Ajustar comportamiento en móviles
 if (isMobile()) {
     console.log('📱 Dispositivo móvil detectado');
     
-    // Hacer que los enlaces de teléfono sean clicables
     const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
     phoneLinks.forEach(link => {
         link.addEventListener('click', function() {
@@ -269,29 +333,15 @@ if (isMobile()) {
     });
 }
 
-// Tracking de eventos (para analytics)
+// ============================================
+// TRACKING DE EVENTOS
+// ============================================
+
 function trackEvent(category, action, label) {
     console.log(`📊 Evento: ${category} - ${action} - ${label}`);
-    
-    // Aquí puedes integrar Google Analytics, Facebook Pixel, etc.
-    // Ejemplo con Google Analytics:
-    // if (typeof gtag !== 'undefined') {
-    //     gtag('event', action, {
-    //         'event_category': category,
-    //         'event_label': label
-    //     });
-    // }
+    // Integrar Google Analytics u otra herramienta aquí si lo requieres
 }
 
-// Track clicks en botones de contacto
-document.querySelectorAll('.quick-contact-card, .btn-whatsapp-inline').forEach(button => {
-    button.addEventListener('click', function() {
-        const method = this.querySelector('h3')?.textContent || 'WhatsApp';
-        trackEvent('Contact', 'Click', method);
-    });
-});
-
-// Track envío de formulario
 const form = document.getElementById('contactForm');
 if (form) {
     form.addEventListener('submit', function() {
@@ -299,34 +349,27 @@ if (form) {
     });
 }
 
-// Mensajes de consola
-console.log('%c✅ JavaScript de Contacto cargado', 'color: #6DB33F; font-weight: bold; font-size: 14px;');
-console.log('%c📱 Contáctanos: +51 905 447 656', 'color: #003B5C; font-size: 12px;');
-console.log('%c💼 ¿Necesitas ayuda? Escríbenos por WhatsApp', 'color: #25D366; font-size: 12px;');
+// ============================================
+// COPIAR EMAIL AL PORTAPAPELES
+// ============================================
 
-// Función para copiar email al portapapeles
 function copyEmail(event, email) {
     event.preventDefault();
     event.stopPropagation();
     
-    // Copiar al portapapeles
     navigator.clipboard.writeText(email).then(function() {
         console.log('📋 Email copiado:', email);
         
-        // Encontrar el botón que se clickeó
         const button = event.currentTarget;
         const icon = button.querySelector('i');
         
-        // Cambiar a check
         button.classList.add('copied');
         icon.classList.remove('fa-copy');
         icon.classList.add('fa-check');
         
-        // Mensaje temporal
         const originalTitle = button.title;
         button.title = '¡Copiado!';
         
-        // Volver al estado original después de 2 segundos
         setTimeout(function() {
             button.classList.remove('copied');
             icon.classList.remove('fa-check');
@@ -334,16 +377,14 @@ function copyEmail(event, email) {
             button.title = originalTitle;
         }, 2000);
         
-        // Mostrar notificación visual opcional
         showCopyNotification(email);
         
     }).catch(function(err) {
         console.error('❌ Error al copiar:', err);
-        alert('Email copiado: ' + email);
+        alert('Email: ' + email);
     });
 }
 
-// Notificación visual al copiar
 function showCopyNotification(email) {
     const notification = document.createElement('div');
     notification.className = 'copy-notification';
@@ -354,12 +395,15 @@ function showCopyNotification(email) {
     
     document.body.appendChild(notification);
     
-    // Animar entrada
     setTimeout(() => notification.classList.add('show'), 10);
     
-    // Remover después de 3 segundos
     setTimeout(() => {
         notification.classList.remove('show');
         setTimeout(() => notification.remove(), 300);
     }, 3000);
 }
+
+// Mensajes de consola
+console.log('%c✅ JavaScript de Contacto cargado', 'color: #6DB33F; font-weight: bold; font-size: 14px;');
+console.log('%c📱 Contáctanos: +51 905 447 656', 'color: #003B5C; font-size: 12px;');
+console.log('%c💼 ¿Necesitas ayuda? Escríbenos por WhatsApp', 'color: #25D366; font-size: 12px;');

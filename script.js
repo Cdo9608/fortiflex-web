@@ -99,7 +99,7 @@ if (nextBtn) {
     });
 }
 
-console.log('✅ Carrusel inicializado -', slides.length, 'slides con fondo personalizado');
+console.log('Carrusel inicializado -', slides.length, 'slides con fondo personalizado');
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {

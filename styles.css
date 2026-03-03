@@ -197,7 +197,7 @@ body {
 
 /* Slides con fondo personalizado */
 .slide-3d {
-    background-image: url('carrousel/fondo_carrusel.jpeg');
+    background-image: url('inicio/fondo_carrusel.jpeg');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -2729,3 +2729,6 @@ body.menu-open {
   Nota: se eliminó el hack de aspect-ratio porque chocaba con las alturas
   fijas y podía “romper” el carrusel en móvil.
 */
+
+
+

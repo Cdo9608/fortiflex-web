@@ -3,197 +3,189 @@
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Inicializando página Productos...');
-    
+    console.log('Inicializando página Productos...');
+
     // Inicializar todas las funciones
     initFilters();
     initScrollAnimations();
     initSmoothScroll();
-    initCarousel(); // Nueva función para el carrusel
-    
-    console.log('✅ Página Productos inicializada correctamente');
+    initCarousel(); // Carrusel (ahora soporta múltiples)
+
+    console.log('Página Productos inicializada correctamente');
 });
 
 // ============================================
-// SISTEMA DE CARRUSEL AUTOMÁTICO
+// SISTEMA DE CARRUSEL AUTOMÁTICO (MULTI-CARRUSEL)
 // ============================================
 
 function initCarousel() {
-    console.log('🎠 Intentando inicializar carrusel...');
-    
-    const carousel = document.querySelector('.producto-carousel');
-    if (!carousel) {
-        console.log('⚠️ No se encontró .producto-carousel en la página');
-        return;
-    }
-    console.log('✅ Carrusel encontrado:', carousel);
+    console.log('Intentando inicializar carruseles...');
 
-    const track = carousel.querySelector('.carousel-track');
-    const slides = carousel.querySelectorAll('.carousel-slide');
-    const indicators = carousel.querySelectorAll('.indicator');
-    const prevBtn = carousel.querySelector('.carousel-control.prev');
-    const nextBtn = carousel.querySelector('.carousel-control.next');
+    // ✅ AHORA: selecciona TODOS los carruseles
+    const carousels = document.querySelectorAll('.producto-carousel');
 
-    console.log('📊 Elementos encontrados:');
-    console.log('- Track:', track);
-    console.log('- Slides:', slides.length);
-    console.log('- Indicators:', indicators.length);
-    console.log('- Prev button:', prevBtn);
-    console.log('- Next button:', nextBtn);
-
-    if (slides.length === 0) {
-        console.log('⚠️ No hay slides en el carrusel');
+    if (carousels.length === 0) {
+        console.log('No se encontró .producto-carousel en la página');
         return;
     }
 
-    console.log(`🎠 Carrusel inicializado correctamente con ${slides.length} slides`);
+    console.log(`Se encontraron ${carousels.length} carrusel(es). Inicializando...`);
 
-    let currentSlide = 0;
-    let autoplayInterval;
-    const AUTOPLAY_DELAY = 3000; // 4 segundos entre cambios
+    // ✅ Inicializar cada carrusel por separado (estado independiente)
+    carousels.forEach((carousel, carouselIndex) => {
+        console.log(`Inicializando carrusel #${carouselIndex + 1}`, carousel);
 
-    // Función para mostrar un slide específico
-    function showSlide(index) {
-        // Normalizar el índice
-        if (index >= slides.length) {
-            currentSlide = 0;
-        } else if (index < 0) {
-            currentSlide = slides.length - 1;
-        } else {
-            currentSlide = index;
+        const track = carousel.querySelector('.carousel-track');
+        const slides = carousel.querySelectorAll('.carousel-slide');
+        const indicators = carousel.querySelectorAll('.indicator');
+        const prevBtn = carousel.querySelector('.carousel-control.prev');
+        const nextBtn = carousel.querySelector('.carousel-control.next');
+
+        console.log('Elementos encontrados:');
+        console.log('- Track:', track);
+        console.log('- Slides:', slides.length);
+        console.log('- Indicators:', indicators.length);
+        console.log('- Prev button:', prevBtn);
+        console.log('- Next button:', nextBtn);
+
+        if (slides.length === 0) {
+            console.log('No hay slides en este carrusel');
+            return;
         }
 
-        // Remover clase active de todos los slides e indicadores
-        slides.forEach(slide => slide.classList.remove('active'));
-        indicators.forEach(indicator => indicator.classList.remove('active'));
-
-        // Agregar clase active al slide e indicador actual
-        slides[currentSlide].classList.add('active');
-        if (indicators[currentSlide]) {
-            indicators[currentSlide].classList.add('active');
+        // ✅ Opcional: si no hay indicadores, no rompemos nada
+        // (pero si quieres círculos, deben estar en el HTML)
+        if (indicators.length > 0 && indicators.length !== slides.length) {
+            console.warn(
+                `⚠️ Carrusel #${carouselIndex + 1}: slides (${slides.length}) != indicators (${indicators.length}). ` +
+                `Asegúrate de agregar un <span class="indicator"> por cada slide.`
+            );
         }
 
-        console.log(`📍 Mostrando slide ${currentSlide + 1} de ${slides.length}`);
-    }
+        let currentSlide = 0;
+        let autoplayInterval;
 
-    // Función para ir al siguiente slide
-    function nextSlide() {
-        showSlide(currentSlide + 1);
-    }
+        // ✅ Aquí cambias los segundos (en milisegundos)
+        // 3000 = 3s, 5000 = 5s, etc.
+        const AUTOPLAY_DELAY = 3000;
 
-    // Función para ir al slide anterior
-    function prevSlide() {
-        showSlide(currentSlide - 1);
-    }
+        // Mostrar un slide específico
+        function showSlide(index) {
+            if (index >= slides.length) currentSlide = 0;
+            else if (index < 0) currentSlide = slides.length - 1;
+            else currentSlide = index;
 
-    // Iniciar autoplay
-    function startAutoplay() {
-        stopAutoplay(); // Detener cualquier autoplay existente
-        autoplayInterval = setInterval(nextSlide, AUTOPLAY_DELAY);
-        console.log('▶️ Autoplay iniciado');
-    }
+            slides.forEach(slide => slide.classList.remove('active'));
+            slides[currentSlide].classList.add('active');
 
-    // Detener autoplay
-    function stopAutoplay() {
-        if (autoplayInterval) {
-            clearInterval(autoplayInterval);
-            console.log('⏸️ Autoplay detenido');
+            // indicadores (si existen)
+            if (indicators.length > 0) {
+                indicators.forEach(indicator => indicator.classList.remove('active'));
+                if (indicators[currentSlide]) indicators[currentSlide].classList.add('active');
+            }
+
+            console.log(`Carrusel #${carouselIndex + 1}: mostrando slide ${currentSlide + 1} de ${slides.length}`);
         }
-    }
 
-    // Event listeners para los controles
-    if (nextBtn) {
-        nextBtn.addEventListener('click', () => {
-            nextSlide();
+        function nextSlide() { showSlide(currentSlide + 1); }
+        function prevSlide() { showSlide(currentSlide - 1); }
+
+        function startAutoplay() {
             stopAutoplay();
-            setTimeout(startAutoplay, 8000); // Reiniciar autoplay después de 8s
-        });
-    }
-
-    if (prevBtn) {
-        prevBtn.addEventListener('click', () => {
-            prevSlide();
-            stopAutoplay();
-            setTimeout(startAutoplay, 8000); // Reiniciar autoplay después de 8s
-        });
-    }
-
-    // Event listeners para los indicadores
-    indicators.forEach((indicator, index) => {
-        indicator.addEventListener('click', () => {
-            showSlide(index);
-            stopAutoplay();
-            setTimeout(startAutoplay, 8000); // Reiniciar autoplay después de 8s
-        });
-    });
-
-    // Pausar autoplay cuando el mouse está sobre el carrusel
-    carousel.addEventListener('mouseenter', () => {
-        stopAutoplay();
-    });
-
-    // Reanudar autoplay cuando el mouse sale del carrusel
-    carousel.addEventListener('mouseleave', () => {
-        startAutoplay();
-    });
-
-    // Pausar autoplay cuando la pestaña no está visible
-    document.addEventListener('visibilitychange', () => {
-        if (document.hidden) {
-            stopAutoplay();
-        } else {
-            startAutoplay();
+            autoplayInterval = setInterval(nextSlide, AUTOPLAY_DELAY);
+            console.log(`Carrusel #${carouselIndex + 1}: autoplay iniciado (${AUTOPLAY_DELAY}ms)`);
         }
-    });
 
-    // Soporte para gestos táctiles (móviles)
-    let touchStartX = 0;
-    let touchEndX = 0;
-
-    carousel.addEventListener('touchstart', (e) => {
-        touchStartX = e.changedTouches[0].screenX;
-        stopAutoplay();
-    });
-
-    carousel.addEventListener('touchend', (e) => {
-        touchEndX = e.changedTouches[0].screenX;
-        handleSwipe();
-        setTimeout(startAutoplay, 8000);
-    });
-
-    function handleSwipe() {
-        const swipeThreshold = 50; // Píxeles mínimos para considerar un swipe
-        const diff = touchStartX - touchEndX;
-
-        if (Math.abs(diff) > swipeThreshold) {
-            if (diff > 0) {
-                // Swipe izquierda - siguiente
-                nextSlide();
-            } else {
-                // Swipe derecha - anterior
-                prevSlide();
+        function stopAutoplay() {
+            if (autoplayInterval) {
+                clearInterval(autoplayInterval);
+                autoplayInterval = null;
+                console.log(`Carrusel #${carouselIndex + 1}: autoplay detenido`);
             }
         }
-    }
 
-    // Soporte para teclado
-    document.addEventListener('keydown', (e) => {
-        if (!carousel.matches(':hover')) return;
-
-        if (e.key === 'ArrowLeft') {
-            prevSlide();
-            stopAutoplay();
-            setTimeout(startAutoplay, 8000);
-        } else if (e.key === 'ArrowRight') {
-            nextSlide();
-            stopAutoplay();
-            setTimeout(startAutoplay, 8000);
+        // Controles (si existen)
+        if (nextBtn) {
+            nextBtn.addEventListener('click', () => {
+                nextSlide();
+                stopAutoplay();
+                setTimeout(startAutoplay, 8000);
+            });
         }
-    });
 
-    // Iniciar el carrusel
-    showSlide(0);
-    startAutoplay();
+        if (prevBtn) {
+            prevBtn.addEventListener('click', () => {
+                prevSlide();
+                stopAutoplay();
+                setTimeout(startAutoplay, 8000);
+            });
+        }
+
+        // Indicadores (si existen)
+        if (indicators.length > 0) {
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    showSlide(index);
+                    stopAutoplay();
+                    setTimeout(startAutoplay, 8000);
+                });
+            });
+        }
+
+        // Hover pause/reanudar
+        carousel.addEventListener('mouseenter', stopAutoplay);
+        carousel.addEventListener('mouseleave', startAutoplay);
+
+        // Gestos táctiles (móvil)
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        carousel.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+            stopAutoplay();
+        }, { passive: true });
+
+        carousel.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+            setTimeout(startAutoplay, 8000);
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) nextSlide(); // izquierda
+                else prevSlide();          // derecha
+            }
+        }
+
+        // Teclado (solo si el mouse está encima del carrusel actual)
+        document.addEventListener('keydown', (e) => {
+            if (!carousel.matches(':hover')) return;
+
+            if (e.key === 'ArrowLeft') {
+                prevSlide();
+                stopAutoplay();
+                setTimeout(startAutoplay, 8000);
+            } else if (e.key === 'ArrowRight') {
+                nextSlide();
+                stopAutoplay();
+                setTimeout(startAutoplay, 8000);
+            }
+        });
+
+        // Pestaña visible/invisible (aplica a todos, pero no rompe)
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) stopAutoplay();
+            else startAutoplay();
+        });
+
+        // Iniciar carrusel
+        showSlide(0);
+        startAutoplay();
+    });
 }
 
 // ============================================
@@ -216,18 +208,17 @@ function initFilters() {
     filterButtons.forEach(button => {
         button.addEventListener('click', function() {
             const filter = this.getAttribute('data-filter');
-            
+
             // Remover active de todos los botones
             filterButtons.forEach(btn => btn.classList.remove('active'));
-            
+
             // Agregar active al botón clickeado
             this.classList.add('active');
-            
+
             console.log(`🔍 Filtrando por: ${filter}`);
-            
+
             // Filtrar productos
             if (filter === 'all') {
-                // Mostrar todas las categorías
                 categories.forEach(category => {
                     category.style.display = 'block';
                 });
@@ -240,20 +231,14 @@ function initFilters() {
                     animateCard(card);
                 });
             } else {
-                // Mostrar solo la categoría seleccionada
                 categories.forEach(category => {
                     const categoryId = category.getAttribute('id');
-                    if (categoryId === filter) {
-                        category.style.display = 'block';
-                    } else {
-                        category.style.display = 'none';
-                    }
+                    if (categoryId === filter) category.style.display = 'block';
+                    else category.style.display = 'none';
                 });
-                
-                // Filtrar tarjetas normales
+
                 productCards.forEach(card => {
                     const cardCategory = card.getAttribute('data-category');
-                    
                     if (cardCategory === filter) {
                         card.classList.remove('hidden');
                         animateCard(card);
@@ -261,11 +246,9 @@ function initFilters() {
                         card.classList.add('hidden');
                     }
                 });
-                
-                // Filtrar tarjetas grandes
+
                 productCardsLarge.forEach(card => {
                     const cardCategory = card.getAttribute('data-category');
-                    
                     if (cardCategory === filter) {
                         card.classList.remove('hidden');
                         animateCard(card);
@@ -274,7 +257,7 @@ function initFilters() {
                     }
                 });
             }
-            
+
             // Scroll suave a la sección de productos
             const productosSection = document.querySelector('.productos-section');
             if (productosSection) {
@@ -292,7 +275,7 @@ function initFilters() {
 function animateCard(card) {
     card.style.opacity = '0';
     card.style.transform = 'translateY(20px)';
-    
+
     setTimeout(() => {
         card.style.transition = 'all 0.5s ease';
         card.style.opacity = '1';
@@ -306,7 +289,7 @@ function animateCard(card) {
 
 function initScrollAnimations() {
     const elements = document.querySelectorAll('.producto-card, .producto-card-large, .category-header');
-    
+
     if (elements.length === 0) {
         console.log('⚠️ No se encontraron elementos para animar');
         return;
@@ -342,7 +325,7 @@ function initScrollAnimations() {
 
 function initSmoothScroll() {
     const links = document.querySelectorAll('a[href^="#"]');
-    
+
     if (links.length === 0) {
         console.log('ℹ️ No se encontraron enlaces de anclaje');
         return;
@@ -353,16 +336,16 @@ function initSmoothScroll() {
     links.forEach(link => {
         link.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
-            
+
             if (targetId === '#') return;
-            
+
             const targetElement = document.querySelector(targetId);
-            
+
             if (targetElement) {
                 e.preventDefault();
-                
+
                 const offsetTop = targetElement.offsetTop - 100;
-                
+
                 window.scrollTo({
                     top: offsetTop,
                     behavior: 'smooth'
@@ -382,9 +365,9 @@ function cotizarProducto(nombreProducto) {
     const telefono = '51905447656';
     const mensaje = `Hola, estoy interesado en obtener una cotización para: ${nombreProducto}`;
     const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
-    
+
     console.log(`💬 Abriendo WhatsApp para cotizar: ${nombreProducto}`);
-    
+
     window.open(url, '_blank');
 }
 
@@ -439,13 +422,9 @@ function createScrollToTopButton() {
 
     document.body.appendChild(scrollBtn);
 
-    // Mostrar/ocultar botón según scroll
     window.addEventListener('scroll', () => {
-        if (window.pageYOffset > 300) {
-            scrollBtn.style.display = 'flex';
-        } else {
-            scrollBtn.style.display = 'none';
-        }
+        if (window.pageYOffset > 300) scrollBtn.style.display = 'flex';
+        else scrollBtn.style.display = 'none';
     });
 
     console.log('⬆️ Botón scroll to top creado');
@@ -460,7 +439,7 @@ createScrollToTopButton();
 
 function initLazyLoading() {
     const images = document.querySelectorAll('img[data-src]');
-    
+
     if (images.length === 0) {
         console.log('ℹ️ No hay imágenes con lazy loading');
         return;
@@ -488,9 +467,8 @@ initLazyLoading();
 // PERFORMANCE MONITORING
 // ============================================
 
-// Log de tiempo de carga
 window.addEventListener('load', () => {
-    const loadTime = window.performance.timing.domContentLoadedEventEnd - 
+    const loadTime = window.performance.timing.domContentLoadedEventEnd -
                      window.performance.timing.navigationStart;
     console.log(`⚡ Página cargada en ${loadTime}ms`);
 });
@@ -499,7 +477,6 @@ window.addEventListener('load', () => {
 // UTILIDADES
 // ============================================
 
-// Detectar dispositivo móvil
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
