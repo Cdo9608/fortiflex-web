@@ -562,8 +562,6 @@
     justify-items: center;
     z-index: 3;
 }
-    justify-items: center;
-}
 
 .fx-lightbox__img {
     max-width: min(1100px, 96vw);
@@ -661,6 +659,19 @@
         grid-template-columns: 1fr 1fr;
     }
 
+    .kpi {
+        padding: 14px 8px;
+    }
+
+    .kpi-num {
+        font-size: 1.9rem;
+    }
+
+    .kpi-lbl {
+        font-size: 0.72rem;
+        letter-spacing: 0;
+    }
+
     .stage__viewport {
         height: 300px;
     }
@@ -676,5 +687,75 @@
 
     .mini-badges {
         gap: 8px;
+    }
+}
+
+/* ============================================
+   MOBILE: fix texto cortado y orden visual
+============================================ */
+@media (max-width: 768px) {
+    .galeria-grid {
+        grid-template-columns: 1fr;
+        gap: 32px;
+    }
+
+    /* Asegura que el texto salga completo sin overflow */
+    .galeria-texto {
+        width: 100%;
+        overflow: visible;
+        padding: 0;
+    }
+
+    .galeria-parrafo {
+        font-size: 0.97rem;
+        line-height: 1.7;
+        overflow-wrap: break-word;
+        word-break: break-word;
+    }
+
+    /* KPIs: 3 columnas en móvil pero más compactas */
+    .galeria-kpis {
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 20px;
+    }
+
+    .kpi {
+        padding: 12px 6px;
+    }
+
+    .kpi-num {
+        font-size: 1.7rem;
+    }
+
+    .kpi-lbl {
+        font-size: 0.68rem;
+        letter-spacing: 0;
+        line-height: 1.3;
+    }
+
+    /* Slider ocupa todo el ancho disponible */
+    .galeria-visual {
+        width: 100%;
+    }
+
+    .stage__viewport {
+        height: 280px;
+        min-height: 220px;
+    }
+
+    /* Botones de navegación dentro del slider */
+    .stage__hud {
+        top: 10px;
+        right: 10px;
+        gap: 8px;
+    }
+
+    .galeria-titulo {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+    }
+
+    .hint {
+        font-size: 0.8rem;
     }
 }
