@@ -1113,29 +1113,40 @@
         padding: 60px 0;
     }
 
+    /* El contenedor debe tener posición relativa y altura fija calculada */
     .team-carousel-container {
-        height: auto;
-        min-height: 600px;
+        position: relative;
+        width: 100%;
+        /* Altura estimada: imagen 280px + gap 20px + contenido ~320px + padding */
+        height: 660px;
+        overflow: hidden;
     }
 
+    /* Los slides siguen siendo absolutos (para el fade entre slides),
+       pero en móvil se apilan en columna */
     .team-slide {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         grid-template-columns: 1fr;
-        gap: 30px;
-        position: relative;
-        height: auto;
+        gap: 20px;
+        overflow-y: hidden;
     }
 
     .team-slide-image {
-        height: 300px;
+        height: 280px;
     }
 
     .team-slide-content {
-        padding: 20px;
+        padding: 0 10px 20px;
     }
 
     .team-value-icon {
         width: 60px;
         height: 60px;
+        margin-bottom: 15px;
     }
 
     .team-value-icon i {
@@ -1143,20 +1154,22 @@
     }
 
     .team-slide-title {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
     }
 
     .team-slide-content h4 {
-        font-size: 1.5rem;
+        font-size: 1.4rem;
+        margin-bottom: 12px;
     }
 
     .team-slide-content p {
-        font-size: 1rem;
+        font-size: 0.95rem;
+        line-height: 1.6;
     }
 
     .team-carousel-controls {
         gap: 15px;
-        margin-top: 30px;
+        margin-top: 20px;
     }
 
     .team-carousel-arrow {
@@ -1264,6 +1277,25 @@
         max-width: 95%;
         padding: 15px;
     }
+
+    /* Ajuste carrusel en pantallas muy pequeñas */
+    .team-carousel-container {
+        height: 620px;
+    }
+
+    .team-slide-image {
+        height: 240px;
+    }
+
+    .team-slide-title {
+        font-size: 1.2rem;
+    }
+
+    .team-slide-content h4 {
+        font-size: 1.2rem;
+    }
+
+    .team-slide-content p {
+        font-size: 0.9rem;
+    }
 }
-
-

@@ -141,20 +141,12 @@ body {
     aspect-ratio: 2000 / 710;
     overflow: hidden;
     background: #f0f2f1; /* Coincide con el color del borde inferior de las imágenes */
-	 perspective: 1200px;
+	
 	 
 }
 
 
-	.carousel-tilt-glare {
-    position: absolute;
-    inset: 0;
-    z-index: 5;
-    pointer-events: none;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-.hero-carousel:hover .carousel-tilt-glare { opacity: 1; }
+	
 
 /* Con aspect-ratio, el carrusel escala proporcionalmente en todos los tamaños */
 @media (max-width: 1024px) {
