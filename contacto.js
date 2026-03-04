@@ -1,39 +1,27 @@
-// ============================================
-// CONTACTO PAGE - Interactive JavaScript
-// ============================================
-
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Iniciando página Contacto...');
-    
+        
     initContactForm();
     initFAQAccordion();
     initScrollAnimations();
     initCatalogModal();
     initVendorTeam();
     
-    console.log('✅ Página Contacto inicializada correctamente');
-});
-
-// ============================================
-// EQUIPO DE ASESORES - Efecto 3D + Toggle
-// ============================================
+    });
 
 function initVendorTeam() {
     const cards = document.querySelectorAll('.vendor-card');
 
     if (cards.length === 0) {
-        console.log('⚠️ No se encontraron tarjetas de vendedores');
-        return;
+                return;
     }
 
-    console.log(`👥 Inicializadas ${cards.length} tarjetas de asesores`);
-
+    
     cards.forEach(card => {
         const inner = card.querySelector('.card-inner');
 
-        // ── Efecto 3D tilt al mover el mouse ──
+        
         card.addEventListener('mousemove', function(e) {
-            // No aplicar tilt si la tarjeta está expandida
+            
             if (card.classList.contains('active')) return;
 
             const rect = inner.getBoundingClientRect();
@@ -53,25 +41,25 @@ function initVendorTeam() {
             }
         });
 
-        // ── Toggle al hacer clic ──
+        
         card.addEventListener('click', function(e) {
-            // Si el clic fue dentro de un enlace (<a>), no colapsar
+            
             if (e.target.closest('a')) return;
 
             const isActive = card.classList.contains('active');
 
-            // Cerrar todas las tarjetas
+            
             cards.forEach(c => {
                 c.classList.remove('active');
                 c.querySelector('.card-inner').style.transform =
                     'perspective(700px) rotateX(0deg) rotateY(0deg) translateZ(0px)';
             });
 
-            // Abrir la tarjeta clicada si no estaba abierta
+            
             if (!isActive) {
                 card.classList.add('active');
                 inner.style.transform = 'perspective(700px) rotateX(0deg) rotateY(0deg) translateZ(14px)';
-                // Scroll suave para que se vea el panel desplegado
+                
                 setTimeout(() => {
                     card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }, 120);
@@ -80,22 +68,16 @@ function initVendorTeam() {
     });
 }
 
-// ============================================
-// MODAL DE CATÁLOGO
-// ============================================
-
 function initCatalogModal() {
     const modal = document.getElementById('catalogModal');
     const openBtn = document.getElementById('openCatalogModal');
     const closeBtn = document.getElementById('closeCatalogModal');
     
     if (!modal || !openBtn || !closeBtn) {
-        console.log('⚠️ Modal de catálogo no encontrado');
-        return;
+                return;
     }
     
-    console.log('📦 Modal de catálogo inicializado');
-    
+        
     openBtn.addEventListener('click', function(e) {
         e.preventDefault();
         modal.classList.add('open');
@@ -122,26 +104,19 @@ function initCatalogModal() {
     });
 }
 
-// ============================================
-// FORMULARIO DE CONTACTO
-// ============================================
-
 function initContactForm() {
     const form = document.getElementById('contactForm');
     const successMessage = document.getElementById('successMessage');
     
     if (!form) {
-        console.log('⚠️ Formulario de contacto no encontrado');
-        return;
+                return;
     }
     
-    console.log('📝 Formulario de contacto inicializado');
-    
+        
     form.addEventListener('submit', function(e) {
         e.preventDefault();
         
-        console.log('📤 Enviando formulario...');
-        
+                
         const formData = {
             nombre: document.getElementById('nombre').value,
             empresa: document.getElementById('empresa').value || 'No especificada',
@@ -152,8 +127,7 @@ function initContactForm() {
             mensaje: document.getElementById('mensaje').value
         };
         
-        console.log('📊 Datos del formulario:', formData);
-        
+                
         if (!formData.nombre || !formData.email || !formData.telefono || !formData.mensaje) {
             alert('Por favor completa todos los campos obligatorios');
             return;
@@ -181,8 +155,7 @@ _Enviado desde www.fortiflex.com.pe_`;
         btn.disabled = true;
         
         setTimeout(function() {
-            console.log('✅ Abriendo WhatsApp...');
-            
+                        
             const whatsappURL = `https://api.whatsapp.com/send?phone=51905447656&text=${encodeURIComponent(whatsappMessage)}`;
             window.open(whatsappURL, '_blank');
             
@@ -195,20 +168,14 @@ _Enviado desde www.fortiflex.com.pe_`;
     });
 }
 
-// ============================================
-// FAQ ACCORDION
-// ============================================
-
 function initFAQAccordion() {
     const faqItems = document.querySelectorAll('.faq-item');
     
     if (faqItems.length === 0) {
-        console.log('⚠️ No se encontraron elementos FAQ');
-        return;
+                return;
     }
     
-    console.log(`❓ Inicializadas ${faqItems.length} preguntas FAQ`);
-    
+        
     faqItems.forEach(item => {
         const question = item.querySelector('.faq-question');
         
@@ -221,14 +188,9 @@ function initFAQAccordion() {
             
             item.classList.toggle('active');
             
-            console.log('❓ FAQ toggled:', question.querySelector('h4').textContent);
-        });
+                    });
     });
 }
-
-// ============================================
-// ANIMACIONES SCROLL
-// ============================================
 
 function initScrollAnimations() {
     const animatedElements = document.querySelectorAll(
@@ -260,10 +222,6 @@ function initScrollAnimations() {
     });
 }
 
-// ============================================
-// VALIDACIÓN EN TIEMPO REAL
-// ============================================
-
 document.addEventListener('DOMContentLoaded', function() {
     const emailInput = document.getElementById('email');
     
@@ -274,8 +232,7 @@ document.addEventListener('DOMContentLoaded', function() {
             
             if (email && !emailRegex.test(email)) {
                 this.style.borderColor = '#dc3545';
-                console.log('⚠️ Email inválido');
-            } else {
+                            } else {
                 this.style.borderColor = '#e0e0e0';
             }
         });
@@ -291,10 +248,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 });
-
-// ============================================
-// SMOOTH SCROLL
-// ============================================
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
@@ -314,32 +267,21 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// ============================================
-// MOBILE DETECTION
-// ============================================
-
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
 if (isMobile()) {
-    console.log('📱 Dispositivo móvil detectado');
-    
+        
     const phoneLinks = document.querySelectorAll('a[href^="tel:"]');
     phoneLinks.forEach(link => {
         link.addEventListener('click', function() {
-            console.log('📞 Llamada iniciada:', this.getAttribute('href'));
-        });
+                    });
     });
 }
 
-// ============================================
-// TRACKING DE EVENTOS
-// ============================================
-
 function trackEvent(category, action, label) {
-    console.log(`📊 Evento: ${category} - ${action} - ${label}`);
-    // Integrar Google Analytics u otra herramienta aquí si lo requieres
+        
 }
 
 const form = document.getElementById('contactForm');
@@ -349,17 +291,12 @@ if (form) {
     });
 }
 
-// ============================================
-// COPIAR EMAIL AL PORTAPAPELES
-// ============================================
-
 function copyEmail(event, email) {
     event.preventDefault();
     event.stopPropagation();
     
     navigator.clipboard.writeText(email).then(function() {
-        console.log('📋 Email copiado:', email);
-        
+                
         const button = event.currentTarget;
         const icon = button.querySelector('i');
         
@@ -380,8 +317,7 @@ function copyEmail(event, email) {
         showCopyNotification(email);
         
     }).catch(function(err) {
-        console.error('❌ Error al copiar:', err);
-        alert('Email: ' + email);
+                alert('Email: ' + email);
     });
 }
 
@@ -403,14 +339,6 @@ function showCopyNotification(email) {
     }, 3000);
 }
 
-// Mensajes de consola
-console.log('%c✅ JavaScript de Contacto cargado', 'color: #6DB33F; font-weight: bold; font-size: 14px;');
-console.log('%c📱 Contáctanos: +51 905 447 656', 'color: #003B5C; font-size: 12px;');
-console.log('%c💼 ¿Necesitas ayuda? Escríbenos por WhatsApp', 'color: #25D366; font-size: 12px;');
-
-
-
-// MENÚ HAMBURGUESA MÓVIL
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.header-content');
     const nav = document.querySelector('.main-nav');
@@ -474,5 +402,53 @@ document.addEventListener('DOMContentLoaded', function() {
         resizeTimer = setTimeout(function() {
             if (window.innerWidth > 968 && nav.classList.contains('active')) closeMenu();
         }, 250);
+    });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    document.querySelectorAll('.vendor-btn-email').forEach(function(btn) {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+
+            const emailSpan = btn.querySelector('.vendor-btn-value');
+            let email = emailSpan ? emailSpan.textContent.trim() : '';
+
+            if (!email || email === '[email\u00a0protected]') {
+                const cfSpan = btn.querySelector('[data-cfemail]');
+                if (cfSpan) {
+                    const encoded = cfSpan.getAttribute('data-cfemail');
+                    const key = parseInt(encoded.substring(0, 2), 16);
+                    let decoded = '';
+                    for (let i = 2; i < encoded.length; i += 2) {
+                        decoded += String.fromCharCode(parseInt(encoded.substring(i, i + 2), 16) ^ key);
+                    }
+                    email = decoded;
+                }
+            }
+
+            if (!email) return;
+
+            navigator.clipboard.writeText(email).then(function() {
+                showCopyNotification(email);
+
+                const icon = btn.querySelector('i');
+                const label = btn.querySelector('.vendor-btn-label');
+                const originalLabel = label ? label.textContent : '';
+
+                btn.classList.add('copied');
+                if (icon) { icon.classList.replace('fa-envelope', 'fa-check'); }
+                if (label) label.textContent = '¡Copiado!';
+
+                setTimeout(function() {
+                    btn.classList.remove('copied');
+                    if (icon) { icon.classList.replace('fa-check', 'fa-envelope'); }
+                    if (label) label.textContent = originalLabel;
+                }, 2000);
+
+            }).catch(function() {
+                alert('Email: ' + email);
+            });
+        });
     });
 });
