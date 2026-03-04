@@ -32,17 +32,17 @@
       { img: "galeria/proyectos/proyecto_m.jpeg", title: "Proyecto" }
     ],
     eventos: [
-      { img: "galeria/eventos/agriexpo2025/AGRIEXPO2025.jpeg", title: "AgriExpo" },
-      { img: "galeria/eventos/agriexpo2025/AGRIEXPO2025_1.jpeg", title: "AgriExpo" },
-      { img: "galeria/eventos/agriexpo2025/AGRIEXPO2025_2.jpeg", title: "AgriExpo" },
-      { img: "galeria/eventos/agriexpo2025/AGRIEXPO2025_3.jpeg", title: "AgriExpo" },
-      { img: "galeria/eventos/AGROFEST2026/AGROFEST_2026_1.jpeg", title: "AgroFest" },
-      { img: "galeria/eventos/AGROFEST2026/AGROFEST_2026_2.jpeg", title: "AgroFest" },
-      { img: "galeria/eventos/AGROFEST2026/AGROFEST_2026_3.jpeg", title: "AgroFest" },
-      { img: "galeria/eventos/AGROFEST2026/AGROFEST_2026_4.jpeg", title: "AgroFest" },
-      { img: "galeria/eventos/AGROFEST2026/AGROFEST_2026_5.jpeg", title: "AgroFest" },
-      { img: "galeria/eventos/AGROFEST2026/AGROFEST_2026_6.jpeg", title: "AgroFest" },
-      { img: "galeria/eventos/expoagua_2021/EXPOAGUA_2021.jpeg", title: "ExpoAgua" },
+      { img: "galeria/eventos/agriexpo2025/agriexpo2025.jpeg", title: "agriexpo" },
+      { img: "galeria/eventos/agriexpo2025/agriexpo2025_1.jpeg", title: "agriexpo" },
+      { img: "galeria/eventos/agriexpo2025/agriexpo2025_2.jpeg", title: "agriexpo" },
+      { img: "galeria/eventos/agriexpo2025/agriexpo2025_3.jpeg", title: "agriexpo" },
+      { img: "galeria/eventos/agrofest2026/agrofest_2026_1.jpeg", title: "agrofest" },
+      { img: "galeria/eventos/agrofest2026/agrofest_2026_2.jpeg", title: "agrofest" },
+      { img: "galeria/eventos/agrofest2026/agrofest_2026_3.jpeg", title: "agrofest" },
+      { img: "galeria/eventos/agrofest2026/agrofest_2026_4.jpeg", title: "agrofest" },
+      { img: "galeria/eventos/agrofest2026/agrofest_2026_5.jpeg", title: "agrofest" },
+      { img: "galeria/eventos/agrofest2026/agrofest_2026_6.jpeg", title: "agrofest" },
+      { img: "galeria/eventos/expoagua_2021/expoagua_2021.jpeg", title: "expoagua" },
       
     ],
     galeria: [
