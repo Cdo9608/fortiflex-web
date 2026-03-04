@@ -137,34 +137,47 @@ body {
 
 .hero-carousel {
     position: relative;
-    height: 800px;
-    overflow-x: hidden;
-    overflow-y: hidden;
-    background: #1a1a2e;
+    width: 100%;
+    aspect-ratio: 2000 / 710;
+    overflow: hidden;
+    background: #f0f2f1; /* Coincide con el color del borde inferior de las imágenes */
+	 perspective: 1200px;
+	 
 }
 
-/* Responsive heights */
+
+	.carousel-tilt-glare {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+.hero-carousel:hover .carousel-tilt-glare { opacity: 1; }
+
+/* Con aspect-ratio, el carrusel escala proporcionalmente en todos los tamaños */
 @media (max-width: 1024px) {
     .hero-carousel {
-        height: 700px;
+        aspect-ratio: 2000 / 710;
     }
 }
 
 @media (max-width: 768px) {
     .hero-carousel {
-        height: 600px;
+        aspect-ratio: 2000 / 710;
     }
 }
 
 @media (max-width: 576px) {
     .hero-carousel {
-        height: 520px;
+        aspect-ratio: 2000 / 710;
     }
 }
 
 @media (max-width: 400px) {
     .hero-carousel {
-        height: 470px;
+        aspect-ratio: 2000 / 710;
     }
 }
 
@@ -540,9 +553,9 @@ body {
       - Dejamos que el contenido defina la altura
     */
     .hero-carousel {
-        height: auto !important;
-        min-height: 650px !important;
-        padding-bottom: 70px; /* espacio para dots */
+        aspect-ratio: 2000 / 710;
+        min-height: unset !important;
+        padding-bottom: 0;
     }
     
     .slide-3d-content {
@@ -600,8 +613,8 @@ body {
 
 @media (max-width: 400px) {
     .hero-carousel {
-        height: auto !important;
-        min-height: 600px !important;
+        aspect-ratio: 2000 / 710;
+        min-height: unset !important;
     }
     
     .slide-3d-content {
@@ -2512,7 +2525,7 @@ body.menu-open {
     
     /* Carrusel más pequeño */
     .hero-carousel {
-        height: 350px;
+        aspect-ratio: 2000 / 710;
     }
     
     /* Sectores - 1 columna */
@@ -2713,7 +2726,7 @@ body.menu-open {
    ============================================ */
 @media (max-height: 500px) and (orientation: landscape) {
     .hero-carousel {
-        height: 400px;
+        aspect-ratio: 2000 / 710;
     }
     
     .whatsapp-cta {
@@ -2729,6 +2742,3 @@ body.menu-open {
   Nota: se eliminó el hack de aspect-ratio porque chocaba con las alturas
   fijas y podía “romper” el carrusel en móvil.
 */
-
-
-

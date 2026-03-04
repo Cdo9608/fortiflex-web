@@ -42,7 +42,7 @@
       { img: "galeria/eventos/agrofest2026/agrofest_2026_4.jpeg", title: "agrofest" },
       { img: "galeria/eventos/agrofest2026/agrofest_2026_5.jpeg", title: "agrofest" },
       { img: "galeria/eventos/agrofest2026/agrofest_2026_6.jpeg", title: "agrofest" },
-      { img: "galeria/eventos/expoagua_2021/expoagua_2021.jpeg", title: "expoagua" },
+      { img: "galeria/eventos/expoagua2021/expoagua_2021.jpeg", title: "expoagua" },
       
     ],
     galeria: [

@@ -415,3 +415,108 @@ document.addEventListener('DOMContentLoaded', function() {
     
     console.log('✅ Menú hamburguesa inicializado correctamente');
 });
+// ============================================
+// EFECTO TILT 3D EN CARRUSEL
+// ============================================
+
+(function() {
+    const carousel = document.querySelector('.hero-carousel');
+    const glare    = document.getElementById('tiltGlare');
+    if (!carousel) return;
+
+    // Intensidad máxima de inclinación en grados
+    const MAX_TILT  = 6;
+
+    let isHovering  = false;
+    let rafId       = null;
+    let targetRX    = 0, targetRY = 0;
+    let currentRX   = 0, currentRY = 0;
+
+    function lerp(a, b, t) { return a + (b - a) * t; }
+
+    function animate() {
+        // Interpolación suave hacia el objetivo
+        currentRX = lerp(currentRX, targetRX, 0.08);
+        currentRY = lerp(currentRY, targetRY, 0.08);
+
+        const activeSlide = carousel.querySelector('.carousel-slide.active');
+        if (activeSlide) {
+            // Inclinación 3D
+            activeSlide.style.transform =
+                `rotateX(${currentRX}deg) rotateY(${currentRY}deg) scale(1.03)`;
+
+            // Parallax interno: la imagen se mueve levemente en dirección opuesta
+            const shiftX = -currentRY * 0.3;
+            const shiftY =  currentRX * 0.3;
+            activeSlide.style.backgroundPosition =
+                `calc(50% + ${shiftX}%) calc(50% + ${shiftY}%)`;
+        }
+
+        // Brillo sigue al mouse
+        if (glare) {
+            const gx = 50 + (targetRY / MAX_TILT) * 30;
+            const gy = 50 - (targetRX / MAX_TILT) * 30;
+            glare.style.background =
+                `radial-gradient(circle at ${gx}% ${gy}%, rgba(255,255,255,0.10) 0%, transparent 65%)`;
+        }
+
+        rafId = requestAnimationFrame(animate);
+    }
+
+    carousel.addEventListener('mouseenter', function() {
+        // No pausar el carrusel automático — solo añadir el tilt
+        isHovering = true;
+        if (!rafId) rafId = requestAnimationFrame(animate);
+    });
+
+    carousel.addEventListener('mousemove', function(e) {
+        if (!isHovering) return;
+        const rect  = carousel.getBoundingClientRect();
+        const x     = (e.clientX - rect.left)  / rect.width;   // 0..1
+        const y     = (e.clientY - rect.top)   / rect.height;  // 0..1
+        targetRY    =  (x - 0.5) * MAX_TILT * 2;
+        targetRX    = -(y - 0.5) * MAX_TILT * 2;
+    });
+
+    carousel.addEventListener('mouseleave', function() {
+        isHovering = false;
+        targetRX   = 0;
+        targetRY   = 0;
+
+        // Volver a cero suavemente y luego detener el loop
+        function waitForZero() {
+            if (Math.abs(currentRX) < 0.05 && Math.abs(currentRY) < 0.05) {
+                const activeSlide = carousel.querySelector('.carousel-slide.active');
+                if (activeSlide) {
+                    activeSlide.style.transform          = '';
+                    activeSlide.style.backgroundPosition = 'center';
+                }
+                cancelAnimationFrame(rafId);
+                rafId = null;
+            } else {
+                rafId = requestAnimationFrame(waitForZero);
+            }
+        }
+        cancelAnimationFrame(rafId);
+        rafId = requestAnimationFrame(waitForZero);
+    });
+
+    // Resetear transform al cambiar de slide para evitar artefactos visuales
+    const slideObserver = new MutationObserver(function(mutations) {
+        mutations.forEach(function(m) {
+            if (m.type === 'attributes' && m.attributeName === 'class') {
+                const slide = m.target;
+                if (!slide.classList.contains('active')) {
+                    slide.style.transform          = '';
+                    slide.style.backgroundPosition = 'center';
+                }
+            }
+        });
+    });
+
+    document.querySelectorAll('.carousel-slide').forEach(function(slide) {
+        slideObserver.observe(slide, { attributes: true });
+    });
+
+    console.log('✅ Efecto Tilt 3D inicializado');
+})();
