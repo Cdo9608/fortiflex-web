@@ -1,9 +1,3 @@
-/* ============================================
-   NOSOTROS PAGE - FORTIFLEX PERU
-   Professional styling with smooth animations
-   ============================================ */
-
-/* Hero Section with Video */
 .nosotros-hero {
     position: relative;
     height: 70vh;
@@ -68,7 +62,6 @@
     margin: 0 auto;
 }
 
-/* Animations */
 @keyframes fadeUp {
     from {
         opacity: 0;
@@ -154,7 +147,6 @@
     opacity: 0;
 }
 
-/* Quiénes Somos Section */
 .quienes-somos-section {
     padding: 100px 0;
     background: linear-gradient(to bottom, #ffffff 0%, #f8f9fa 100%);
@@ -189,7 +181,6 @@
     display: block;
 }
 
-/* Estilos para el video */
 .trabajador-video {
     width: 100%;
     height: 100%;
@@ -197,7 +188,6 @@
     display: block;
 }
 
-/* Estilizar los controles del video */
 .trabajador-video::-webkit-media-controls-panel {
     background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
 }
@@ -207,7 +197,6 @@
     filter: brightness(1.2);
 }
 
-/* Asegurar que los controles sean visibles */
 .trabajador-image:hover .trabajador-video::-webkit-media-controls {
     opacity: 1;
 }
@@ -284,7 +273,6 @@
     margin-bottom: 1.2rem;
 }
 
-/* Stats Row */
 .stats-row {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -323,7 +311,6 @@
     letter-spacing: 0.5px;
 }
 
-/* Misión y Visión Section */
 .mision-vision-section {
     padding: 100px 0;
     background: linear-gradient(135deg, var(--primary-blue) 0%, #004670 100%);
@@ -385,7 +372,6 @@
     opacity: 0.95;
 }
 
-/* Valores Section */
 .valores-intro {
     text-align: center;
     max-width: 900px;
@@ -406,7 +392,6 @@
     opacity: 0.9;
 }
 
-/* Botones de Políticas */
 .politicas-buttons {
     display: flex;
     justify-content: center;
@@ -448,13 +433,11 @@
     color: white;
 }
 
-/* Certificaciones Section */
 .certificaciones-section {
     padding: 100px 0;
     background: white;
 }
 
-/* Team Section */
 .team-section {
     padding: 100px 0;
     background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
@@ -472,7 +455,6 @@
     background: linear-gradient(90deg, var(--accent-orange), var(--accent-green));
 }
 
-/* Team Carousel */
 .team-carousel {
     margin: 60px 0;
     position: relative;
@@ -582,7 +564,6 @@
     font-style: italic;
 }
 
-/* Carousel Controls */
 .team-carousel-controls {
     display: flex;
     align-items: center;
@@ -641,7 +622,6 @@
     transform: scale(1.2);
 }
 
-/* Valores Grid */
 .valores-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -685,7 +665,6 @@
     color: #666;
 }
 
-/* Certificaciones Section */
 .certificaciones-section {
     padding: 100px 0;
     background: white;
@@ -738,7 +717,6 @@
     border-color: var(--accent-orange);
 }
 
-/* Overlay que aparece al hacer hover */
 .cert-overlay {
     position: absolute;
     top: 0;
@@ -804,7 +782,6 @@
     line-height: 1.6;
 }
 
-/* Modal Styles */
 .modal-overlay {
     position: fixed;
     top: 0;
@@ -837,7 +814,6 @@
     transition: transform 0.3s ease;
 }
 
-/* Estilos específicos para modal con PDF */
 .modal-pdf {
     max-width: 95%;
     max-height: 95vh;
@@ -847,7 +823,6 @@
     flex-direction: column;
 }
 
-/* Estilos para modal de descarga de PDF */
 .modal-pdf-download {
     max-width: 600px;
     width: 90%;
@@ -928,7 +903,6 @@
     color: white;
 }
 
-/* Estilos específicos para modal con imagen de certificado */
 .modal-image {
     max-width: 90%;
     max-height: 90vh;
@@ -1035,7 +1009,6 @@
     border-radius: 10px;
 }
 
-/* Responsive Design */
 @media (max-width: 1024px) {
     .quienes-somos-grid {
         grid-template-columns: 1fr;
@@ -1108,22 +1081,21 @@
         padding: 60px 0;
     }
 
-    /* Team Section Responsive */
+    
     .team-section {
         padding: 60px 0;
     }
 
-    /* El contenedor debe tener posición relativa y altura fija calculada */
+    
     .team-carousel-container {
         position: relative;
         width: 100%;
-        /* Altura estimada: imagen 280px + gap 20px + contenido ~320px + padding */
+        
         height: 660px;
         overflow: hidden;
     }
 
-    /* Los slides siguen siendo absolutos (para el fade entre slides),
-       pero en móvil se apilan en columna */
+    
     .team-slide {
         position: absolute;
         top: 0;
@@ -1187,7 +1159,7 @@
         margin-top: 50px;
     }
 
-    /* Responsive para modal PDF en móvil */
+    
     .modal-pdf {
         max-width: 95%;
         width: 95%;
@@ -1278,7 +1250,7 @@
         padding: 15px;
     }
 
-    /* Ajuste carrusel en pantallas muy pequeñas */
+    
     .team-carousel-container {
         height: 620px;
     }

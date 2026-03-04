@@ -1,12 +1,6 @@
-// ============================================
-// NOSOTROS PAGE - Interactive JavaScript
-// ============================================
-
-// Esperar a que el DOM esté completamente cargado
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Inicializando página Nosotros...');
     
-    // Inicializar todas las funciones
+    
     initAnimateNumbers();
     initModals();
     initScrollAnimations();
@@ -14,19 +8,15 @@ document.addEventListener('DOMContentLoaded', function() {
     initSmoothScroll();
     initTeamCarousel();
     
-    console.log('✅ Página Nosotros inicializada correctamente');
 });
 
-// Animación de números (contador animado)
 function initAnimateNumbers() {
     const statNumbers = document.querySelectorAll('.stat-number');
     
     if (statNumbers.length === 0) {
-        console.log('⚠️ No se encontraron elementos .stat-number');
         return;
     }
     
-    console.log(`📊 Encontrados ${statNumbers.length} contadores`);
     
     const observerOptions = {
         threshold: 0.3,
@@ -40,14 +30,12 @@ function initAnimateNumbers() {
                 const target = parseInt(element.getAttribute('data-target'));
                 
                 if (isNaN(target)) {
-                    console.error('❌ data-target no es un número válido:', element);
                     return;
                 }
                 
-                console.log(`🎯 Animando contador a: ${target}`);
                 
-                const duration = 2000; // 2 segundos
-                const increment = target / (duration / 16); // 60fps
+                const duration = 2000; 
+                const increment = target / (duration / 16); 
                 let current = 0;
 
                 const updateNumber = () => {
@@ -71,7 +59,6 @@ function initAnimateNumbers() {
     });
 }
 
-// Sistema de Modales
 function initModals() {
     const modalButtons = document.querySelectorAll('.btn-politica');
     const certCards = document.querySelectorAll('.cert-card[data-cert]');
@@ -79,16 +66,13 @@ function initModals() {
     const closeButtons = document.querySelectorAll('.modal-close');
 
     if (modalButtons.length === 0) {
-        console.log('⚠️ No se encontraron botones .btn-politica');
     } else {
-        console.log(`🪟 Encontrados ${modalButtons.length} botones de modal`);
     }
 
     if (certCards.length > 0) {
-        console.log(`🏆 Encontradas ${certCards.length} tarjetas de certificación clicables`);
     }
 
-    // Abrir modales de políticas
+    
     modalButtons.forEach(button => {
         button.addEventListener('click', function(e) {
             e.preventDefault();
@@ -96,38 +80,33 @@ function initModals() {
             const modal = document.getElementById(`modal-${modalId}`);
             
             if (modal) {
-                console.log(`📂 Abriendo modal: ${modalId}`);
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             } else {
-                console.error(`❌ No se encontró el modal: modal-${modalId}`);
             }
         });
     });
 
-    // Abrir modales de certificaciones
+    
     certCards.forEach(card => {
         card.addEventListener('click', function() {
             const certId = this.getAttribute('data-cert');
             const modal = document.getElementById(`modal-cert-${certId}`);
             
             if (modal) {
-                console.log(`🏆 Abriendo certificado: ${certId}`);
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             } else {
-                console.error(`❌ No se encontró el modal: modal-cert-${certId}`);
             }
         });
     });
 
-    // Manejar descarga forzada de PDFs
+    
     initPDFDownloads();
 
-    // Cerrar modales
+    
     function closeModal(modal) {
         if (modal) {
-            console.log('❌ Cerrando modal');
             modal.classList.remove('active');
             document.body.style.overflow = '';
         }
@@ -140,7 +119,7 @@ function initModals() {
         });
     });
 
-    // Cerrar al hacer click fuera del contenido
+    
     modals.forEach(modal => {
         modal.addEventListener('click', function(e) {
             if (e.target === this) {
@@ -149,7 +128,7 @@ function initModals() {
         });
     });
 
-    // Cerrar con tecla ESC
+    
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape') {
             modals.forEach(modal => {
@@ -161,7 +140,6 @@ function initModals() {
     });
 }
 
-// Función para forzar descarga de PDFs
 function initPDFDownloads() {
     const downloadButtons = document.querySelectorAll('.btn-download-pdf-large');
     
@@ -172,9 +150,8 @@ function initPDFDownloads() {
             const pdfUrl = this.getAttribute('href');
             const fileName = this.getAttribute('download');
             
-            console.log(`📥 Descargando: ${fileName}`);
             
-            // Forzar descarga usando fetch y blob
+            
             fetch(pdfUrl)
                 .then(response => response.blob())
                 .then(blob => {
@@ -187,20 +164,16 @@ function initPDFDownloads() {
                     a.click();
                     window.URL.revokeObjectURL(url);
                     document.body.removeChild(a);
-                    console.log(`✅ Descarga iniciada: ${fileName}`);
                 })
                 .catch(error => {
-                    console.error('❌ Error al descargar:', error);
-                    // Si fetch falla, abrir en nueva pestaña como fallback
+                    
                     window.open(pdfUrl, '_blank');
                 });
         });
     });
     
-    console.log(`📥 Configurados ${downloadButtons.length} botones de descarga de PDF`);
 }
 
-// Animaciones al hacer scroll
 function initScrollAnimations() {
     const animatedElements = document.querySelectorAll(
         '.animate-fade-up, .animate-fade-right, .animate-fade-left, .animate-scale, .animate-float'
@@ -229,7 +202,6 @@ function initScrollAnimations() {
     });
 }
 
-// Efecto parallax suave en el video hero
 function initParallax() {
     const hero = document.querySelector('.nosotros-hero');
     const heroVideo = document.querySelector('.hero-video');
@@ -246,7 +218,6 @@ function initParallax() {
     }
 }
 
-// Smooth scroll para enlaces internos
 function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
@@ -267,12 +238,10 @@ function initSmoothScroll() {
     });
 }
 
-// Detectar si el usuario está en un dispositivo móvil
 function isMobile() {
     return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
 }
 
-// Ajustar video en móviles
 if (isMobile()) {
     const video = document.querySelector('.hero-video');
     if (video) {
@@ -281,7 +250,6 @@ if (isMobile()) {
     }
 }
 
-// Carrusel del Equipo
 function initTeamCarousel() {
     const slides = document.querySelectorAll('.team-slide');
     const dots = document.querySelectorAll('.team-carousel-dot');
@@ -289,29 +257,26 @@ function initTeamCarousel() {
     const nextBtn = document.querySelector('.team-carousel-next');
     
     if (slides.length === 0) {
-        console.log('⚠️ No se encontró el carrusel del equipo');
         return;
     }
     
-    console.log(`👥 Carrusel del equipo inicializado con ${slides.length} slides`);
     
     let currentSlide = 0;
-    const slideInterval = 5000; // 5 segundos
+    const slideInterval = 5000; 
     let carouselTimer;
 
     function showSlide(n) {
-        // Remover clase active de todos
+        
         slides.forEach(slide => slide.classList.remove('active'));
         dots.forEach(dot => dot.classList.remove('active'));
         
-        // Calcular índice correcto
+        
         currentSlide = (n + slides.length) % slides.length;
         
-        // Añadir clase active
+        
         slides[currentSlide].classList.add('active');
         dots[currentSlide].classList.add('active');
         
-        console.log(`👥 Mostrando slide ${currentSlide + 1}/${slides.length}`);
     }
 
     function nextSlide() {
@@ -322,7 +287,7 @@ function initTeamCarousel() {
         showSlide(currentSlide - 1);
     }
 
-    // Auto-advance
+    
     function startAutoPlay() {
         carouselTimer = setInterval(nextSlide, slideInterval);
     }
@@ -331,10 +296,10 @@ function initTeamCarousel() {
         clearInterval(carouselTimer);
     }
 
-    // Iniciar autoplay
+    
     startAutoPlay();
 
-    // Navegación con flechas
+    
     if (prevBtn) {
         prevBtn.addEventListener('click', () => {
             prevSlide();
@@ -351,7 +316,7 @@ function initTeamCarousel() {
         });
     }
 
-    // Navegación con dots
+    
     dots.forEach((dot, index) => {
         dot.addEventListener('click', () => {
             showSlide(index);
@@ -360,14 +325,14 @@ function initTeamCarousel() {
         });
     });
 
-    // Pausar al hacer hover
+    
     const carouselContainer = document.querySelector('.team-carousel-container');
     if (carouselContainer) {
         carouselContainer.addEventListener('mouseenter', stopAutoPlay);
         carouselContainer.addEventListener('mouseleave', startAutoPlay);
     }
 
-    // Soporte para gestos táctiles en móvil
+    
     let touchStartX = 0;
     let touchEndX = 0;
 
@@ -383,13 +348,13 @@ function initTeamCarousel() {
 
         function handleSwipe() {
             if (touchEndX < touchStartX - 50) {
-                // Swipe izquierda - siguiente
+                
                 nextSlide();
                 stopAutoPlay();
                 startAutoPlay();
             }
             if (touchEndX > touchStartX + 50) {
-                // Swipe derecha - anterior
+                
                 prevSlide();
                 stopAutoPlay();
                 startAutoPlay();
@@ -397,11 +362,3 @@ function initTeamCarousel() {
         }
     }
 }
-
-// Mensajes de consola
-console.log('%c✅ JavaScript de Nosotros cargado', 'color: #6DB33F; font-weight: bold; font-size: 14px;');
-console.log('%c📱 Contáctanos: +51 905 447 656', 'color: #003B5C; font-size: 12px;');
-
-
-
-

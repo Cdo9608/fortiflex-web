@@ -131,24 +131,18 @@ body {
     color: var(--accent-orange);
 }
 
-/* ============================================
-   CARRUSEL CON FONDO PERSONALIZADO
-   ============================================ */
-
 .hero-carousel {
     position: relative;
     width: 100%;
     aspect-ratio: 2000 / 710;
     overflow: hidden;
-    background: #f0f2f1; /* Coincide con el color del borde inferior de las imágenes */
+    background: #f0f2f1; 
 	
 	 
 }
 
-
 	
 
-/* Con aspect-ratio, el carrusel escala proporcionalmente en todos los tamaños */
 @media (max-width: 1024px) {
     .hero-carousel {
         aspect-ratio: 2000 / 710;
@@ -173,7 +167,6 @@ body {
     }
 }
 
-/* Slide base */
 .carousel-slide {
     position: absolute;
     top: 0;
@@ -200,7 +193,6 @@ body {
     }
 }
 
-/* Slides con fondo personalizado */
 .slide-3d {
     background-image: url('inicio/fondo_carrusel.jpeg');
     background-size: cover;
@@ -208,7 +200,6 @@ body {
     background-repeat: no-repeat;
 }
 
-/* Overlay oscuro sutil para mejorar legibilidad del texto */
 .slide-3d::before {
     content: '';
     position: absolute;
@@ -233,7 +224,6 @@ body {
     z-index: 2;
 }
 
-/* Texto lado izquierdo */
 .slide-3d-text {
     animation: slideInLeft 1s ease-out;
     z-index: 3;
@@ -300,7 +290,6 @@ body {
     filter: brightness(1.0) drop-shadow(0 6px 18px rgba(0, 0, 0, 0.5));
 }
 
-/* Imagen 3D lado derecho */
 .slide-3d-image {
     position: relative;
     display: flex;
@@ -309,9 +298,9 @@ body {
     animation: slideInRight 1s ease-out;
     perspective: 1200px;
     z-index: 3;
-    /* Mover imagen hacia la izquierda */
+    
     flex-grow: 1;
-    margin-right: -150px;  /* Ajusta este valor: -150px, -200px, -250px, etc. */
+    margin-right: -150px;  
     padding-right: 0;
     overflow: visible;
     height: 100%;
@@ -331,7 +320,7 @@ body {
 .accessories-3d {
     width: 100%;
     min-width: 900px;
-    /* Imagen GIGANTE - sin límites de tamaño */
+    
     max-width: none !important;
     height: 100%;
     max-height: 100%;
@@ -339,13 +328,12 @@ body {
     object-position: right center;
     filter: drop-shadow(0 30px 80px rgba(0, 0, 0, 0.8));
     transform-style: preserve-3d;
-    /* MOVER IMAGEN HACIA LA IZQUIERDA con efecto sutil */
+    
     transform: translateX(-250px);
-    /* Efecto de movimiento suave y elegante */
+    
     animation: subtleFloat 8s ease-in-out infinite;
 }
 
-/* Animación suave de flotación */
 @keyframes subtleFloat {
     0%, 100% {
         transform: translateX(-250px) translateY(0px);
@@ -355,7 +343,6 @@ body {
     }
 }
 
-/* Efecto de brillo giratorio */
 .slide-3d-image::before {
     content: '';
     position: absolute;
@@ -380,7 +367,6 @@ body {
     }
 }
 
-/* Partículas de luz */
 .slide-3d-image::after {
     content: '';
     position: absolute;
@@ -407,10 +393,6 @@ body {
         opacity: 1;
     }
 }
-
-/* ========================================
-   RESPONSIVE DESIGN
-   ======================================== */
 
 @media (max-width: 1200px) {
     .slide-3d-content {
@@ -539,11 +521,7 @@ body {
 }
 
 @media (max-width: 576px) {
-    /*
-      En móvil, evita recortes/solapamientos:
-      - Quitamos alturas fijas del carrusel
-      - Dejamos que el contenido defina la altura
-    */
+    
     .hero-carousel {
         aspect-ratio: 2000 / 710;
         min-height: unset !important;
@@ -598,7 +576,7 @@ body {
     .accessories-3d {
         max-width: 380px !important;
         width: 100% !important;
-        /* Si en algún móvil se ve “aplastada”, esto ayuda */
+        
         object-fit: contain;
     }
 }
@@ -648,7 +626,6 @@ body {
     }
 }
 
-/* Dots responsive */
 .carousel-dots {
     position: absolute;
     bottom: 20px;
@@ -707,7 +684,6 @@ body {
     }
 }
 
-/* Flechas responsive */
 .carousel-arrow {
     position: absolute;
     top: 50%;
@@ -770,11 +746,6 @@ body {
         right: 0.5rem;
     }
 }
-
-
-/* ============================================
-   SECCIÓN DE SECTORES - OPTIMIZADA
-   ============================================ */
 
 .sectors-section {
     padding: 4.5rem 0;
@@ -921,7 +892,6 @@ body {
     transform: translateX(5px);
 }
 
-/* Tarjeta "Y MÁS" - OPTIMIZADA Y MÁS COMPACTA */
 .sector-more {
     background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
     display: flex;
@@ -1006,10 +976,6 @@ body {
 .sector-btn-white:hover i {
     transform: translateX(5px);
 }
-
-/* ============================================
-   SECCIÓN WHATSAPP CTA - MEJORADA
-   ============================================ */
 
 .whatsapp-cta {
     background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
@@ -1118,10 +1084,6 @@ body {
     font-size: 1.1rem;
 }
 
-/* ============================================
-   SECCIÓN CATÁLOGO - CON EFECTO 3D MEJORADO
-   ============================================ */
-
 .catalog-section {
     padding: 5.5rem 0;
     background: var(--white);
@@ -1157,7 +1119,6 @@ body {
     align-items: center;
 }
 
-/* EFECTO 3D EN LA IMAGEN DEL CATÁLOGO */
 .catalog-image {
     border-radius: 15px;
     overflow: visible;
@@ -1219,8 +1180,6 @@ body {
     display: inline-block;
 }
 
-
-
 .catalog-content p {
     font-size: 1.1rem;
     margin-bottom: 1.2rem;
@@ -1280,10 +1239,6 @@ body {
     50% { transform: translateY(3px); }
 }
 
-/* ============================================
-   FOOTER - MEJORADO
-   ============================================ */
-
 .footer {
     background: var(--primary-blue);
     color: var(--white);
@@ -1328,7 +1283,6 @@ body {
     font-size: 0.95rem;
 }
 
-/* CERTIFICACIONES EN FOOTER - COLORES ORIGINALES Y NÍTIDOS */
 .footer-about-certs {
     display: flex;
     flex-wrap: wrap;
@@ -1429,7 +1383,6 @@ body {
     margin-top: 2rem;
 }
 
-
 .footer-bottom p {
     margin-bottom: 0.5rem;
 	 text-align: center;
@@ -1451,10 +1404,6 @@ body {
     color: var(--accent-orange);
     text-decoration: underline;
 }
-
-/* ============================================
-   WHATSAPP FLOTANTE
-   ============================================ */
 
 .whatsapp-float {
     position: fixed;
@@ -1506,10 +1455,6 @@ body {
     animation: fadeInUp 0.8s ease-out;
 }
 
-/* ============================================
-   MEDIA QUERIES - RESPONSIVE
-   ============================================ */
-
 @media (max-width: 1024px) {
     .sectors-grid {
         grid-template-columns: repeat(2, 1fr);
@@ -1542,8 +1487,6 @@ body {
         flex-direction: column;
         gap: 0.5rem;
     }
-
-
 
     .carousel-content h1 {
         font-size: 2.5rem;
@@ -1779,9 +1722,6 @@ body {
         height: 55px;
     }
 }
-/* ============================================
-   MODAL DE CATÁLOGOS
-   ============================================ */
 
 .catalog-modal-overlay {
     display: none;
@@ -2031,7 +1971,6 @@ body {
     color: var(--accent-orange);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
     .catalog-modal-overlay {
         padding: 1rem;
@@ -2064,18 +2003,12 @@ body {
     }
 }
 
-/* Modificar botón existente para que sea button en lugar de link */
 .catalog-section .btn-download {
     cursor: pointer;
     border: none;
     font-family: 'Work Sans', sans-serif;
 }
 
-/* ============================================
-   MENÚ HAMBURGUESA RESPONSIVE - CORREGIDO
-   ============================================ */
-
-/* Botón hamburguesa - oculto en desktop */
 .mobile-menu-toggle {
     display: none;
     position: relative;
@@ -2113,7 +2046,6 @@ body {
     top: 20px;
 }
 
-/* Animación cuando está abierto - color blanco */
 .mobile-menu-toggle.active span {
     background: var(--white);
 }
@@ -2132,13 +2064,12 @@ body {
     transform: rotate(-45deg);
 }
 
-/* Mostrar hamburguesa en tablets y móviles */
 @media (max-width: 968px) {
     .mobile-menu-toggle {
         display: block;
     }
     
-    /* Ocultar menú desktop */
+    
     .main-nav {
         position: fixed;
         top: 0;
@@ -2181,7 +2112,7 @@ body {
         color: var(--accent-orange);
     }
     
-    /* Botón cerrar dentro del menú */
+    
     .mobile-menu-close {
         position: absolute;
         top: 30px;
@@ -2215,7 +2146,7 @@ body {
         transform: rotate(-45deg);
     }
     
-    /* Overlay cuando el menú está abierto */
+    
     .mobile-menu-overlay {
         display: none;
         position: fixed;
@@ -2235,30 +2166,27 @@ body {
     }
 }
 
-/* Header ajustado para móvil */
 @media (max-width: 968px) {
     .header-content {
         justify-content: space-between;
         position: relative;
     }
     
-    /* Logo más pequeño en móvil */
+    
     .logo {
         height: 35px;
     }
     
-    /* Cuando el menú está abierto, cambiar color del toggle */
+    
     body.menu-open .mobile-menu-toggle span {
         background: var(--white);
     }
 }
 
-/* Prevenir scroll cuando el menú está abierto */
 body.menu-open {
     overflow: hidden;
 }
 
-/* Animación de entrada del menú */
 @keyframes slideInRight {
     from {
         transform: translateX(100%);
@@ -2272,12 +2200,8 @@ body.menu-open {
     animation: slideInRight 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* ============================================
-   MENÚ HAMBURGUESA - CORRECCIÓN FINAL
-   ============================================ */
-
 @media (max-width: 968px) {
-    /* OVERLAY - z-index MÁS BAJO */
+    
     .mobile-menu-overlay {
         display: none;
         position: fixed;
@@ -2293,7 +2217,7 @@ body.menu-open {
         display: block !important;
     }
     
-    /* MENÚ - z-index MÁS ALTO */
+    
     .main-nav {
         position: fixed !important;
         top: 0 !important;
@@ -2316,7 +2240,7 @@ body.menu-open {
         right: 0 !important;
     }
     
-    /* ENLACES - visibles y clickeables */
+    
     .main-nav a {
         width: 100% !important;
         padding: 15px 25px !important;
@@ -2392,14 +2316,8 @@ body.menu-open {
     .sector-image {
         height: 180px;
     }
-}/* ============================================
-   MEDIA QUERIES ADICIONALES PARA MÓVIL
-   Agregar al FINAL del archivo styles.css
-   ============================================ */
+}
 
-/* ============================================
-   TABLET (≤ 968px)
-   ============================================ */
 @media (max-width: 968px) {
     .whatsapp-content {
         flex-direction: column;
@@ -2429,11 +2347,8 @@ body.menu-open {
     }
 }
 
-/* ============================================
-   MÓVIL (≤ 768px)
-   ============================================ */
 @media (max-width: 768px) {
-    /* Whatsapp CTA */
+    
     .whatsapp-cta {
         padding: 3rem 0;
     }
@@ -2452,7 +2367,7 @@ body.menu-open {
         font-size: 1rem;
     }
     
-    /* Catalog Section */
+    
     .catalog-section {
         padding: 4rem 0;
     }
@@ -2471,11 +2386,8 @@ body.menu-open {
     }
 }
 
-/* ============================================
-   MÓVIL PEQUEÑO (≤ 576px)
-   ============================================ */
 @media (max-width: 576px) {
-    /* Top Bar Móvil */
+    
     .top-bar {
         font-size: 0.75rem;
         padding: 8px 0;
@@ -2506,7 +2418,7 @@ body.menu-open {
         font-size: 0.95rem;
     }
     
-    /* Header Móvil */
+    
     .header-content {
         padding: 0.8rem 1rem;
     }
@@ -2515,12 +2427,12 @@ body.menu-open {
         height: 32px;
     }
     
-    /* Carrusel más pequeño */
+    
     .hero-carousel {
         aspect-ratio: 2000 / 710;
     }
     
-    /* Sectores - 1 columna */
+    
     .sectors-section {
         padding: 3rem 0;
     }
@@ -2551,7 +2463,7 @@ body.menu-open {
         font-size: 0.9rem;
     }
     
-    /* Títulos de secciones */
+    
     .section-title {
         font-size: 1.8rem;
         padding: 0 1rem;
@@ -2562,7 +2474,7 @@ body.menu-open {
         padding: 0 1rem;
     }
     
-    /* WhatsApp CTA */
+    
     .whatsapp-cta {
         padding: 2.5rem 1rem;
     }
@@ -2588,7 +2500,7 @@ body.menu-open {
         justify-content: center;
     }
     
-    /* Catalog Section */
+    
     .catalog-section {
         padding: 3rem 0;
     }
@@ -2627,7 +2539,7 @@ body.menu-open {
         margin: 0 auto;
     }
     
-    /* Footer */
+    
     .main-footer {
         padding: 2.5rem 0 1rem;
     }
@@ -2652,7 +2564,7 @@ body.menu-open {
         font-size: 0.85rem;
     }
     
-    /* Floating WhatsApp */
+    
     .whatsapp-float {
         width: 50px;
         height: 50px;
@@ -2665,9 +2577,6 @@ body.menu-open {
     }
 }
 
-/* ============================================
-   MÓVIL MUY PEQUEÑO (≤ 400px)
-   ============================================ */
 @media (max-width: 400px) {
     .logo {
         height: 28px;
@@ -2713,9 +2622,6 @@ body.menu-open {
     }
 }
 
-/* ============================================
-   LANDSCAPE MÓVIL (altura < 500px)
-   ============================================ */
 @media (max-height: 500px) and (orientation: landscape) {
     .hero-carousel {
         aspect-ratio: 2000 / 710;
@@ -2729,8 +2635,3 @@ body.menu-open {
         padding: 2rem 0;
     }
 }
-
-/*
-  Nota: se eliminó el hack de aspect-ratio porque chocaba con las alturas
-  fijas y podía “romper” el carrusel en móvil.
-*/

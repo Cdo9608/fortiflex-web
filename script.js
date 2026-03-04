@@ -1,33 +1,28 @@
-// ============================================
-// CARRUSEL CON 6 SLIDES
-// ============================================
-
 const slides = document.querySelectorAll('.carousel-slide');
 const dots = document.querySelectorAll('.carousel-dot');
 let currentSlide = 0;
-const slideInterval = 4000; // 8 segundos por slide para evitar saltos
+const slideInterval = 4000;
 let carouselTimer;
-let isTransitioning = false; // Evitar transiciones múltiples
+let isTransitioning = false;
 
 function showSlide(n) {
-    // Evitar múltiples transiciones simultáneas
+    
     if (isTransitioning) return;
     isTransitioning = true;
     
-    // Remover clase active de todos
+    
     slides.forEach(slide => slide.classList.remove('active'));
     dots.forEach(dot => dot.classList.remove('active'));
     
-    // Calcular índice correcto
+    
     currentSlide = (n + slides.length) % slides.length;
     
-    // Agregar clase active
+    
     slides[currentSlide].classList.add('active');
     dots[currentSlide].classList.add('active');
     
-    console.log('✨ Mostrando slide:', currentSlide + 1, 'de', slides.length);
     
-    // Permitir nuevas transiciones después de 1.5 segundos
+    
     setTimeout(() => {
         isTransitioning = false;
     }, 1500);
@@ -41,7 +36,6 @@ function prevSlide() {
     showSlide(currentSlide - 1);
 }
 
-// Auto-play del carrusel
 function startCarousel() {
     carouselTimer = setInterval(nextSlide, slideInterval);
 }
@@ -55,10 +49,8 @@ function restartCarousel() {
     startCarousel();
 }
 
-// Iniciar carrusel
 startCarousel();
 
-// Click en dots
 dots.forEach((dot, index) => {
     dot.addEventListener('click', () => {
         showSlide(index);
@@ -66,22 +58,18 @@ dots.forEach((dot, index) => {
     });
 });
 
-// Pause al hover sobre el carrusel
 const carousel = document.querySelector('.hero-carousel');
 
 if (carousel) {
     carousel.addEventListener('mouseenter', () => {
         stopCarousel();
-        console.log('⏸️ Carrusel pausado');
     });
 
     carousel.addEventListener('mouseleave', () => {
         startCarousel();
-        console.log('▶️ Carrusel reanudado');
     });
 }
 
-// FLECHAS DE NAVEGACIÓN
 const prevBtn = document.querySelector('.carousel-prev');
 const nextBtn = document.querySelector('.carousel-next');
 
@@ -98,8 +86,6 @@ if (nextBtn) {
         restartCarousel();
     });
 }
-
-console.log('Carrusel inicializado -', slides.length, 'slides con fondo personalizado');
 
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
@@ -179,26 +165,17 @@ document.querySelectorAll('img[data-src]').forEach(img => {
 const whatsappButtons = document.querySelectorAll('.btn-whatsapp, .whatsapp-float');
 
 whatsappButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        console.log('WhatsApp button clicked');
     });
-});
 
 const callButtons = document.querySelectorAll('.btn-call');
 
 callButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        console.log('Call button clicked');
     });
-});
 
 const downloadButtons = document.querySelectorAll('.btn-download');
 
 downloadButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        console.log('Catalog download initiated');
     });
-});
 
 window.addEventListener('scroll', () => {
     const header = document.querySelector('.main-header');
@@ -230,95 +207,70 @@ if (document.readyState === 'loading') {
     preloadCarouselImages();
 }
 
-console.log('%cFORTIFLEX PERÚ', 'color: #003B5C; font-size: 24px; font-weight: bold;');
-console.log('%c🚀 Sitio web desarrollado con tecnologías modernas', 'color: #6DB33F; font-size: 14px;');
-console.log('%c📞 Contáctanos: +51 905 447 656', 'color: #0066A1; font-size: 12px;');
-
-window.addEventListener('error', (e) => {
-    console.error('Error detected:', e.message);
-});
-
-console.log('✅ JavaScript cargado correctamente');
-// ============================================
-// MODAL DE CATÁLOGOS
-// ============================================
-
 document.addEventListener('DOMContentLoaded', function() {
     const openModalBtn = document.getElementById('openCatalogModal');
     const closeModalBtn = document.getElementById('closeCatalogModal');
     const modal = document.getElementById('catalogModal');
     
     if (openModalBtn && modal) {
-        console.log('✅ Modal de catálogos inicializado');
         
-        // Abrir modal
+        
         openModalBtn.addEventListener('click', function(e) {
             e.preventDefault();
-            console.log('📂 Abriendo modal de catálogos');
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
         });
         
-        // Cerrar modal
+        
         if (closeModalBtn) {
             closeModalBtn.addEventListener('click', function() {
-                console.log('❌ Cerrando modal de catálogos');
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
             });
         }
         
-        // Cerrar al hacer click fuera del contenido
+        
         modal.addEventListener('click', function(e) {
             if (e.target === modal) {
-                console.log('❌ Cerrando modal (click fuera)');
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
             }
         });
         
-        // Cerrar con tecla ESC
+        
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && modal.classList.contains('active')) {
-                console.log('❌ Cerrando modal (ESC)');
                 modal.classList.remove('active');
                 document.body.style.overflow = '';
             }
         });
         
-        // Track descargas de catálogos
+        
         const downloadButtons = document.querySelectorAll('.catalog-download-btn');
         downloadButtons.forEach(button => {
             button.addEventListener('click', function() {
                 const catalogName = this.closest('.catalog-card').querySelector('h3').textContent;
-                console.log('📥 Descargando:', catalogName);
                 
-                // Aquí puedes agregar tracking con Google Analytics
-                // gtag('event', 'download', {
-                //     'event_category': 'Catalog',
-                //     'event_label': catalogName
-                // });
+                
+                
+                
+                
+                
             });
         });
     }
 });
-
-// ============================================
-// MENÚ HAMBURGUESA MÓVIL - VERSIÓN FINAL
-// ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.header-content');
     const nav = document.querySelector('.main-nav');
     
     if (!header || !nav) {
-        console.log('❌ No se encontró header o nav');
         return;
     }
     
-    console.log('📱 Inicializando menú móvil...');
     
-    // Crear botón hamburguesa
+    
     const mobileToggle = document.createElement('button');
     mobileToggle.className = 'mobile-menu-toggle';
     mobileToggle.setAttribute('aria-label', 'Abrir menú');
@@ -328,12 +280,12 @@ document.addEventListener('DOMContentLoaded', function() {
         <span></span>
     `;
     
-    // Crear overlay
+    
     const overlay = document.createElement('div');
     overlay.className = 'mobile-menu-overlay';
     document.body.appendChild(overlay);
     
-    // Insertar botón hamburguesa después del logo
+    
     const logo = header.querySelector('div');
     if (logo) {
         logo.after(mobileToggle);
@@ -341,27 +293,25 @@ document.addEventListener('DOMContentLoaded', function() {
         header.appendChild(mobileToggle);
     }
     
-    // Función para abrir menú
+    
     function openMenu() {
         nav.classList.add('active');
         overlay.classList.add('active');
         mobileToggle.classList.add('active');
         document.body.classList.add('menu-open');
         mobileToggle.setAttribute('aria-label', 'Cerrar menú');
-        console.log('✅ Menú abierto');
     }
     
-    // Función para cerrar menú
+    
     function closeMenu() {
         nav.classList.remove('active');
         overlay.classList.remove('active');
         mobileToggle.classList.remove('active');
         document.body.classList.remove('menu-open');
         mobileToggle.setAttribute('aria-label', 'Abrir menú');
-        console.log('❌ Menú cerrado');
     }
     
-    // Toggle menú con hamburguesa
+    
     mobileToggle.addEventListener('click', function(e) {
         e.preventDefault();
         e.stopPropagation();
@@ -375,18 +325,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Cerrar al hacer click en overlay
+    
     overlay.addEventListener('click', function() {
         closeMenu();
     });
     
-    // Cerrar al hacer click en un enlace del menú
+    
     const navLinks = nav.querySelectorAll('a');
-    console.log(`📄 Encontrados ${navLinks.length} enlaces en el menú`);
     
     navLinks.forEach(link => {
         link.addEventListener('click', function() {
-            // Solo cerrar si estamos en móvil
+            
             if (window.innerWidth <= 968) {
                 setTimeout(() => {
                     closeMenu();
@@ -395,14 +344,14 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Cerrar con tecla ESC
+    
     document.addEventListener('keydown', function(e) {
         if (e.key === 'Escape' && nav.classList.contains('active')) {
             closeMenu();
         }
     });
     
-    // Manejar resize de ventana
+    
     let resizeTimer;
     window.addEventListener('resize', function() {
         clearTimeout(resizeTimer);
@@ -413,5 +362,4 @@ document.addEventListener('DOMContentLoaded', function() {
         }, 250);
     });
     
-    console.log('✅ Menú hamburguesa inicializado correctamente');
 });

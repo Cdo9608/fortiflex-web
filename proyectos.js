@@ -1,10 +1,9 @@
-// proyectos.js
 (() => {
   "use strict";
 
-  // ============================================
-  // DATA: cambia rutas e info aquí
-  // ============================================
+  
+  
+  
   const DATA = {
     proyectos: [
       { img: "galeria/proyectos/proyecto_1.jpg",  title: "Proyecto" },
@@ -71,18 +70,18 @@
     ]
   };
 
-  // ============================================
-  // Helpers
-  // ============================================
+  
+  
+  
   const clamp = (n, min, max) => Math.max(min, Math.min(max, n));
 
   function isTouch() {
     return window.matchMedia("(pointer: coarse)").matches;
   }
 
-  // ============================================
-  // Reveal on scroll
-  // ============================================
+  
+  
+  
   function initReveal() {
     const els = document.querySelectorAll(".reveal");
     if (!els.length) return;
@@ -99,9 +98,9 @@
     els.forEach(el => io.observe(el));
   }
 
-  // ============================================
-  // Hero counters (kpis)
-  // ============================================
+  
+  
+  
   function initCounters() {
     const nums = document.querySelectorAll(".kpi-num[data-target]");
     if (!nums.length) return;
@@ -132,9 +131,9 @@
     nums.forEach(n => io.observe(n));
   }
 
-  // ============================================
-  // 3D Carousel (stack)
-  // ============================================
+  
+  
+  
   function mountCarousel(stageEl, items) {
     const deck = stageEl.querySelector("[data-deck]");
     const dotsWrap = stageEl.querySelector("[data-dots]");
@@ -147,7 +146,7 @@
     let index = 0;
     let lbList = items.map(x => ({ src: x.img, caption: x.caption || x.title || "" }));
 
-    // Build cards
+    
     deck.innerHTML = "";
     dotsWrap.innerHTML = "";
 
@@ -164,7 +163,7 @@
         <div class="card3d__glow"></div>
       `;
 
-      // Lightbox open
+      
       const open = () => openLightbox(lbList, i);
       card.addEventListener("click", open);
       card.addEventListener("keydown", (e) => {
@@ -176,7 +175,7 @@
 
       deck.appendChild(card);
 
-      // Dot
+      
       const dot = document.createElement("button");
       dot.className = "dot";
       dot.type = "button";
@@ -190,18 +189,18 @@
       return card;
     });
 
-    // Render stack transforms
+    
     function render() {
       cards.forEach((card, i) => {
         const offset = i - index;
 
-        // only show near cards for performance
+        
         const visible = Math.abs(offset) <= 3;
         card.style.opacity = visible ? "1" : "0";
         card.style.pointerEvents = visible ? "auto" : "none";
         card.style.filter = offset === 0 ? "none" : "blur(0.4px) saturate(0.9)";
 
-        // 3D stack: front centered; behind offset right+down+z
+        
         const translateX = offset * 34;
         const translateY = Math.abs(offset) * 10;
         const rotateY = offset * -8;
@@ -218,20 +217,20 @@
       dots.forEach((d, i) => d.classList.toggle("is-active", i === index));
     }
 
-    // Navigation
+    
     function next() { index = (index + 1) % items.length; render(); }
     function prev() { index = (index - 1 + items.length) % items.length; render(); }
 
     btnNext?.addEventListener("click", next);
     btnPrev?.addEventListener("click", prev);
 
-    // Keyboard navigation (viewport focused)
+    
     viewport.addEventListener("keydown", (e) => {
       if (e.key === "ArrowRight") next();
       if (e.key === "ArrowLeft") prev();
     });
 
-    // Swipe
+    
     let sx = 0;
     let dx = 0;
     viewport.addEventListener("touchstart", (e) => {
@@ -249,8 +248,8 @@
       }
     });
 
-    // 3D tilt on active card
-    // (solo mouse / pointer fino)
+    
+    
     if (!isTouch()) {
       viewport.addEventListener("mousemove", (e) => {
         const active = deck.querySelector('.card3d[data-i="' + index + '"]');
@@ -263,12 +262,12 @@
         const rotY = (x - 0.5) * 10;
         const rotX = (0.5 - y) * 8;
 
-        // apply subtle additional rotation on top of stack transform using CSS vars? easiest: set data attrs
+        
         active.style.setProperty("--mx", `${x * 100}%`);
         active.style.setProperty("--my", `${y * 100}%`);
 
-        // preserve existing transform (stack) and add tilt with translateZ pop
-        // We re-render base then add tilt on active only:
+        
+        
         render();
         active.style.transform += ` rotateX(${rotX}deg) rotateY(${rotY}deg) translateZ(10px)`;
       });
@@ -276,7 +275,7 @@
       viewport.addEventListener("mouseleave", () => render());
     }
 
-    // Autoplay subtle (optional)
+    
     let timer = setInterval(next, 6500);
     const stop = () => { clearInterval(timer); };
     const start = () => { stop(); timer = setInterval(next, 6500); };
@@ -289,9 +288,9 @@
     render();
   }
 
-  // ============================================
-  // Lightbox (shared)
-  // ============================================
+  
+  
+  
   let LB = {
     open: false,
     list: [],
@@ -356,9 +355,9 @@
     LB.els.cap.textContent = item.caption || "";
   }
 
-  // ============================================
-  // Init
-  // ============================================
+  
+  
+  
   document.addEventListener("DOMContentLoaded", () => {
     initReveal();
     initCounters();
@@ -372,10 +371,6 @@
   });
 })();
 
-
-
-
-// MENÚ HAMBURGUESA MÓVIL
 document.addEventListener('DOMContentLoaded', function() {
     const header = document.querySelector('.header-content');
     const nav = document.querySelector('.main-nav');

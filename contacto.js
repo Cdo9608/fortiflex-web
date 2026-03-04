@@ -3,7 +3,7 @@
 // ============================================
 
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('🚀 Inicializando página Contacto...');
+    console.log('Iniciando página Contacto...');
     
     initContactForm();
     initFAQAccordion();
