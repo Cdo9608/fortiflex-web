@@ -1,3 +1,9 @@
+/* ── Prevención global de scroll horizontal en mobile ── */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 .galeria-hero {
     position: relative;
     min-height: 38vh;
@@ -610,8 +616,10 @@
 }
 
 @media (max-width: 768px) {
+    /* ── Bloque general ── */
     .galeria-bloque {
         padding: 50px 0;
+        overflow: hidden; /* evita scroll horizontal */
     }
 
     .galeria-hero {
@@ -619,21 +627,37 @@
         padding: 70px 0 50px;
     }
 
-    
+    /* ── Contenedor base ── */
+    .container {
+        padding-left: 16px;
+        padding-right: 16px;
+        box-sizing: border-box;
+        max-width: 100%;
+        overflow: hidden;
+    }
+
+    /* ── Grid: apila columnas ── */
     .galeria-grid {
         grid-template-columns: 1fr;
         gap: 32px;
         width: 100%;
+        max-width: 100%;
         overflow: hidden;
+        box-sizing: border-box;
     }
 
-    
+    /* ── Texto ── */
     .galeria-texto {
         width: 100%;
         max-width: 100%;
-        overflow: visible;
+        overflow: hidden;
         padding: 0;
         box-sizing: border-box;
+    }
+
+    .galeria-titulo {
+        font-size: clamp(1.8rem, 6vw, 2.5rem);
+        word-break: break-word;
     }
 
     .galeria-parrafo {
@@ -642,19 +666,22 @@
         overflow-wrap: break-word;
         word-break: break-word;
         max-width: 100%;
+        margin-right: 0;
     }
 
-    
+    /* ── KPIs ── */
     .galeria-kpis {
         grid-template-columns: repeat(3, 1fr);
         gap: 10px;
         margin-top: 20px;
         width: 100%;
+        box-sizing: border-box;
     }
 
     .kpi {
         padding: 12px 6px;
         box-sizing: border-box;
+        min-width: 0; /* evita que desborde el grid */
     }
 
     .kpi-num {
@@ -668,15 +695,30 @@
         word-break: break-word;
     }
 
-    
+    /* ── Visual / carrusel ── */
     .galeria-visual {
         width: 100%;
         max-width: 100%;
+        overflow: hidden;
+        box-sizing: border-box;
+    }
+
+    .stage {
+        width: 100%;
+        max-width: 100%;
+        box-sizing: border-box;
+        overflow: hidden;
     }
 
     .stage__viewport {
         height: 260px;
         min-height: 200px;
+        width: 100%;
+        overflow: hidden;
+    }
+
+    .card3d {
+        width: 88%; /* un poco menos para que no se salga */
     }
 
     .stage__hud {
@@ -685,15 +727,12 @@
         gap: 8px;
     }
 
-    .galeria-titulo {
-        font-size: clamp(1.8rem, 6vw, 2.5rem);
-    }
-
     .hint {
         font-size: 0.78rem;
+        overflow-wrap: break-word;
     }
 
-    
+    /* ── Chips del hero ── */
     .galeria-hero__chips {
         gap: 10px;
     }
@@ -701,6 +740,22 @@
     .chip {
         padding: 10px 16px;
         font-size: 0.9rem;
+    }
+
+    /* ── Mini badges ── */
+    .mini-badges {
+        gap: 8px;
+    }
+
+    .mini-badge {
+        font-size: 0.82rem;
+        padding: 7px 14px;
+    }
+
+    /* ── Botón CTA ── */
+    .btn-pill {
+        font-size: 0.95rem;
+        padding: 12px 22px;
     }
 }
 
@@ -712,6 +767,8 @@
 
     .kpi {
         padding: 10px 4px;
+        min-width: 0;
+        box-sizing: border-box;
     }
 
     .kpi-num {
@@ -724,6 +781,11 @@
 
     .stage__viewport {
         height: 240px;
+        overflow: hidden;
+    }
+
+    .card3d {
+        width: 85%;
     }
 
     .navbtn {
@@ -737,10 +799,21 @@
 
     .mini-badges {
         gap: 8px;
+        flex-wrap: wrap;
     }
 
     .mini-badge {
         font-size: 0.8rem;
         padding: 7px 14px;
+    }
+
+    .galeria-hero__subtitle {
+        font-size: 0.92rem;
+        padding: 0 8px;
+    }
+
+    .chip {
+        font-size: 0.82rem;
+        padding: 9px 14px;
     }
 }

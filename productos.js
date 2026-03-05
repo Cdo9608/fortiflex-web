@@ -305,7 +305,7 @@ function initSmoothScroll() {
 function cotizarProducto(nombreProducto) {
     const telefono = '51905447656';
     const mensaje = `Hola, estoy interesado en obtener una cotización para: ${nombreProducto}`;
-    const url = `https:
+    const url = `https://api.whatsapp.com/send?phone=${telefono}&text=${encodeURIComponent(mensaje)}`;
 
     window.open(url, '_blank');
 }
