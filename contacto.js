@@ -7,7 +7,91 @@ document.addEventListener('DOMContentLoaded', function() {
     initMobileMenu();
     initEmailCopyButtons();
     initInputValidation();
+    initProductoBanner();
 });
+
+function initProductoBanner() {
+    // Lee el producto desde el query param: contacto.html?producto=...#asesores
+    const params = new URLSearchParams(window.location.search);
+    const producto = params.get('producto');
+    if (!producto) return;
+
+    const seccion = document.getElementById('asesores');
+    if (!seccion) return;
+
+    // Crear banner de producto
+    const banner = document.createElement('div');
+    banner.className = 'producto-solicitud-banner';
+    banner.innerHTML = `
+        <div class="banner-inner">
+            <i class="fas fa-box-open"></i>
+            <div>
+                <p class="banner-label">Estás solicitando cotización para:</p>
+                <p class="banner-producto">${producto}</p>
+            </div>
+            <button class="banner-close" aria-label="Cerrar"><i class="fas fa-times"></i></button>
+        </div>
+    `;
+
+    // Actualizar los links de WhatsApp de los asesores para incluir el producto
+    seccion.querySelectorAll('.vendor-btn-wa').forEach(btn => {
+        try {
+            const href = btn.getAttribute('href') || '';
+            if (!href.includes('api.whatsapp.com') && !href.includes('wa.me')) return;
+            const url = new URL(href, window.location.origin);
+            const textoActual = url.searchParams.get('text') || '';
+            const nuevoTexto = textoActual + ' Estoy interesado en: *' + producto + '*';
+            url.searchParams.set('text', nuevoTexto);
+            btn.setAttribute('href', url.toString());
+        } catch(e) { /* ignorar URLs inválidas */ }
+    });
+
+    banner.querySelector('.banner-close').addEventListener('click', () => banner.remove());
+
+    const teamHeader = seccion.querySelector('.team-header');
+    if (teamHeader) teamHeader.before(banner);
+
+    // Estilos para el banner
+    const style = document.createElement('style');
+    style.textContent = `
+        .producto-solicitud-banner {
+            margin: 0 auto 1.5rem auto;
+            max-width: 700px;
+            background: linear-gradient(135deg, #003B5C 0%, #0066A1 100%);
+            border-radius: 14px;
+            padding: 1rem 1.4rem;
+            box-shadow: 0 6px 24px rgba(0,102,161,0.25);
+            animation: slideDownBanner 0.4s ease;
+        }
+        @keyframes slideDownBanner {
+            from { opacity: 0; transform: translateY(-16px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+        .banner-inner {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            color: #fff;
+        }
+        .banner-inner > .fas {
+            font-size: 2rem;
+            opacity: 0.85;
+            flex-shrink: 0;
+        }
+        .banner-inner > div { flex: 1; }
+        .banner-label { margin: 0; font-size: 0.82rem; opacity: 0.8; }
+        .banner-producto { margin: 0; font-size: 1.1rem; font-weight: 700; }
+        .banner-close {
+            background: rgba(255,255,255,0.15);
+            border: none; cursor: pointer; color: #fff;
+            width: 32px; height: 32px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0; transition: background 0.2s;
+        }
+        .banner-close:hover { background: rgba(255,255,255,0.3); }
+    `;
+    document.head.appendChild(style);
+}
 
 function initVendorTeam() {
     const cards = document.querySelectorAll('.vendor-card');

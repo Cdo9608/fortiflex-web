@@ -160,8 +160,7 @@ function initSmoothScroll() {
 }
 
 function cotizarProducto(nombre) {
-    const url = `https://api.whatsapp.com/send?phone=51905447656&text=${encodeURIComponent('Hola, estoy interesado en obtener una cotización para: ' + nombre)}`;
-    window.open(url, '_blank');
+    window.location.href = `contacto.html?producto=${encodeURIComponent(nombre)}#asesores`;
 }
 
 function initLazyLoading() {
